@@ -41,7 +41,7 @@ function isActive(href: string, currentPath: string): boolean {
             {item.name}
           </span>
           
-          {/* Active indicator */}
+          {/* Active indicator - extends beyond left edge of container */}
           {active && (
             <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[rgb(var(--color-text-primary))] rounded-r-full -ml-3" />
           )}
@@ -74,7 +74,7 @@ function isActive(href: string, currentPath: string): boolean {
             {item.name}
           </span>
           
-          {/* Active indicator - bottom position for mobile */}
+          {/* Active indicator - bottom position for mobile, extends below container */}
           {active && (
             <div class="absolute bottom-0 left-1/2 -translate-x-1/2 h-1 w-6 bg-[rgb(var(--color-text-primary))] rounded-t-full -mb-3" />
           )}

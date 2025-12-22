@@ -31,7 +31,7 @@
     --content-safe-bottom: 0px;
   }
   
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     :root {
       --content-safe-left: 0px;
       --content-safe-bottom: 96px;
