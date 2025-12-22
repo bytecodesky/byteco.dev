@@ -1,13 +1,13 @@
 # byteco.dev
 
-A modern, fully dark-themed personal website built with Astro, TypeScript, and Tailwind CSS. Features a glassmorphism design with a left sidebar navigation and floating status panel.
+A modern, fully dark-themed personal website built with Astro, TypeScript, and Tailwind CSS. Features a glassmorphism design with a floating dock navigation and status panel.
 
 ## 🌟 Features
 
-- **Modern glassmorphism UI** with blur effects and subtle borders
-- **Left pill sidebar** with icon-based navigation
+- **Modern glassmorphism UI** with enhanced blur effects and subtle borders
+- **Floating dock navigation** with icon-based navigation and tooltips
 - **Floating status button** with drawer panel
-- **Dark-only theme** with violet accent color
+- **Dark-only theme** with strict grayscale (black & white) color scheme
 - **Blog & Notes** with MDX support for rich content
 - **Content Collections** for type-safe content management
 - **Tag system** for organizing content
@@ -109,35 +109,38 @@ The floating status panel can be customized by editing `src/data/status.ts`:
 
 ```typescript
 export const statusData: StatusData = {
-  currentStatus: "Building cool things with web technologies 🚀",
-  emoji: "👨‍💻",
+  currentStatus: "Building cool things with web technologies",
   quickLinks: [
     {
       label: "Email",
       href: "mailto:hello@byteco.dev",
-      icon: "✉️"
+      icon: "Mail"
     },
     {
       label: "GitHub",
       href: "https://github.com/bytecodesky",
-      icon: "🐙"
+      icon: "Github"
     },
     {
-      label: "Twitter",
+      label: "X",
       href: "https://twitter.com",
-      icon: "🐦"
+      icon: "X"
+    },
+    {
+      label: "LinkedIn",
+      href: "https://linkedin.com",
+      icon: "Linkedin"
     }
   ]
 };
 ```
 
 - **currentStatus**: Update your current status message
-- **emoji**: Change the emoji displayed with your status
-- **quickLinks**: Add, remove, or modify quick link buttons
+- **quickLinks**: Add, remove, or modify quick link buttons (uses Lucide icon names)
 
 ### Navigation Links
 
-Update the sidebar navigation in `src/components/SidebarNav.astro` to add or remove navigation items.
+Update the dock navigation in `src/components/SidebarNav.astro` to add or remove navigation items. The dock features icon-only buttons with tooltips on hover.
 
 ### Theme Colors
 
@@ -145,11 +148,11 @@ Edit `src/styles/global.css` to customize the color scheme:
 
 ```css
 :root {
-  --color-bg-primary: 10 10 15;      /* Very dark background */
-  --color-glass-bg: 20 20 30;        /* Glass card background */
+  --color-bg-primary: 5 5 5;         /* Near-black #050505 */
+  --color-glass-bg: 255 255 255;     /* White base for alpha overlays */
   --color-text-primary: 248 250 252; /* Text color */
-  --color-accent: 139 92 246;        /* violet-500 */
-  --color-accent-hover: 124 58 237;  /* violet-600 */
+  --color-accent: 248 250 252;       /* Grayscale accent */
+  --color-accent-hover: 226 232 240; /* Grayscale hover */
 }
 ```
 
@@ -186,7 +189,7 @@ Update social links in:
 │   │   ├── NoteCard.astro
 │   │   ├── RelatedPosts.astro
 │   │   ├── SEO.astro
-│   │   ├── SidebarNav.astro      # Left sidebar navigation
+│   │   ├── SidebarNav.astro      # Floating dock navigation
 │   │   ├── StatusButton.astro    # Floating status button
 │   │   ├── StatusPanel.astro     # Status drawer panel
 │   │   ├── TableOfContents.astro
