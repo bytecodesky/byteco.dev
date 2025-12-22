@@ -18,8 +18,8 @@ function isActive(href: string, currentPath: string): boolean {
 }
 ---
 
-<aside class="fixed left-6 top-1/2 -translate-y-1/2 z-50">
-  <!-- Dock-style navigation -->
+<!-- Desktop: Left dock -->
+<aside class="fixed left-6 top-1/2 -translate-y-1/2 z-50 hidden md:block">
   <nav class="glass-card p-3 flex flex-col gap-2">
     {navItems.map((item) => {
       const active = isActive(item.href, currentPath);
@@ -44,6 +44,39 @@ function isActive(href: string, currentPath: string): boolean {
           {/* Active indicator */}
           {active && (
             <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-6 bg-[rgb(var(--color-text-primary))] rounded-r-full -ml-3" />
+          )}
+        </a>
+      );
+    })}
+  </nav>
+</aside>
+
+<!-- Mobile: Bottom dock -->
+<aside class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 md:hidden">
+  <nav class="glass-card px-4 py-3 flex flex-row gap-2">
+    {navItems.map((item) => {
+      const active = isActive(item.href, currentPath);
+      const Icon = item.icon;
+      return (
+        <a
+          href={item.href}
+          class={`group relative flex items-center justify-center p-3 rounded-xl transition-all duration-300 ${
+            active
+              ? 'text-[rgb(var(--color-text-primary))] bg-[rgba(var(--color-glass-bg),0.15)]'
+              : 'text-[rgb(var(--color-text-tertiary))] hover:text-[rgb(var(--color-text-primary))] hover:bg-[rgba(var(--color-glass-bg),0.08)]'
+          }`}
+          aria-label={item.name}
+        >
+          <Icon size={24} class="transition-transform duration-300 group-hover:scale-110" />
+          
+          {/* Tooltip - positioned above on mobile */}
+          <span class="absolute bottom-full mb-4 px-3 py-2 rounded-lg glass-card text-sm font-medium text-[rgb(var(--color-text-primary))] whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200">
+            {item.name}
+          </span>
+          
+          {/* Active indicator - bottom position for mobile */}
+          {active && (
+            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 h-1 w-6 bg-[rgb(var(--color-text-primary))] rounded-t-full -mb-3" />
           )}
         </a>
       );

@@ -23,6 +23,19 @@
     
     /* Border color */
     --color-border: 255 255 255; /* White for subtle borders */
+    
+    /* Dock dimensions */
+    --dock-w: 72px;
+    --dock-gap: 24px;
+    --content-safe-left: calc(var(--dock-w) + var(--dock-gap));
+    --content-safe-bottom: 0px;
+  }
+  
+  @media (max-width: 768px) {
+    :root {
+      --content-safe-left: 0px;
+      --content-safe-bottom: 96px;
+    }
   }
 
   html {
