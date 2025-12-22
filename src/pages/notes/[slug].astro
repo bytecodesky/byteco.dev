@@ -4,6 +4,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
 import TagList from '../../components/TagList.astro';
 import { formatDate } from '../../utils/helpers';
+import { ArrowLeft, BookOpen } from 'lucide-astro';
 
 export async function getStaticPaths() {
   const notes = await getCollection('notes');
@@ -32,14 +33,12 @@ const { title, date, tags } = note.data;
         href="/notes"
         class="inline-flex items-center gap-2 text-[rgb(var(--color-text-tertiary))] hover:text-[rgb(var(--color-accent))] transition-colors mb-8"
       >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
+        <ArrowLeft size={20} />
         Back to Notes
       </a>
       
-      <div class="flex items-center gap-3 mb-6">
-        <span class="text-5xl">📓</span>
+      <div class="flex items-center gap-4 mb-6">
+        <BookOpen size={40} class="text-[rgb(var(--color-accent))]" />
         <h1 class="text-5xl font-bold text-[rgb(var(--color-text-primary))] leading-tight">
           {title}
         </h1>

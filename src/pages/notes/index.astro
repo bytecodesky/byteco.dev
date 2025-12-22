@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import NoteCard from '../../components/NoteCard.astro';
 import { getAllNotes } from '../../lib/content';
+import { BookOpen } from 'lucide-astro';
 
 const notes = await getAllNotes();
 ---
@@ -12,8 +13,8 @@ const notes = await getAllNotes();
 >
   <div class="container mx-auto px-8 py-16">
     <header class="mb-16">
-      <div class="flex items-center gap-3 mb-6">
-        <span class="text-5xl">📓</span>
+      <div class="flex items-center gap-4 mb-6">
+        <BookOpen size={48} class="text-[rgb(var(--color-accent))]" />
         <h1 class="text-5xl font-bold text-[rgb(var(--color-text-primary))]">Notes</h1>
       </div>
       <p class="text-xl text-[rgb(var(--color-text-secondary))] max-w-3xl">

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { User, Github, Twitter, Linkedin } from 'lucide-astro';
 ---
 
 <BaseLayout
@@ -8,15 +9,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 >
   <div class="container mx-auto px-8 py-16 max-w-4xl">
     <header class="mb-16">
-      <div class="flex items-center gap-3 mb-6">
-        <span class="text-5xl">👤</span>
+      <div class="flex items-center gap-4 mb-6">
+        <User size={48} class="text-[rgb(var(--color-accent))]" />
         <h1 class="text-5xl font-bold text-[rgb(var(--color-text-primary))]">About</h1>
       </div>
     </header>
 
     <div class="space-y-8">
       <section class="glass-card p-8 md:p-12">
-        <h2 class="text-3xl font-bold mb-6 text-[rgb(var(--color-text-primary))]">Hi, I'm byteco 👋</h2>
+        <h2 class="text-3xl font-bold mb-6 text-[rgb(var(--color-text-primary))]">Hi, I'm byteco</h2>
         <div class="prose">
           <p>
             I'm a software developer passionate about web technologies, clean code, and building
@@ -74,25 +75,28 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               href="https://github.com/bytecodesky" 
               target="_blank" 
               rel="noopener noreferrer"
-              class="pill-button glass-card hover:border-[rgb(var(--color-accent))] no-underline"
+              class="pill-button glass-card hover:border-[rgb(var(--color-accent))] no-underline inline-flex items-center gap-2"
             >
-              🐙 GitHub
+              <Github size={20} />
+              GitHub
             </a>
             <a 
               href="https://twitter.com" 
               target="_blank" 
               rel="noopener noreferrer"
-              class="pill-button glass-card hover:border-[rgb(var(--color-accent))] no-underline"
+              class="pill-button glass-card hover:border-[rgb(var(--color-accent))] no-underline inline-flex items-center gap-2"
             >
-              🐦 Twitter
+              <Twitter size={20} />
+              Twitter
             </a>
             <a 
               href="https://linkedin.com" 
               target="_blank" 
               rel="noopener noreferrer"
-              class="pill-button glass-card hover:border-[rgb(var(--color-accent))] no-underline"
+              class="pill-button glass-card hover:border-[rgb(var(--color-accent))] no-underline inline-flex items-center gap-2"
             >
-              💼 LinkedIn
+              <Linkedin size={20} />
+              LinkedIn
             </a>
           </div>
         </div>

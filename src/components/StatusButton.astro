@@ -1,5 +1,5 @@
 ---
-// This is a client-side interactive component, but we'll use vanilla JS for simplicity
+import { Activity } from 'lucide-astro';
 ---
 
 <button
@@ -8,7 +8,7 @@
   aria-label="Open status panel"
 >
   <div class="flex items-center gap-3">
-    <span class="text-2xl">👋</span>
+    <Activity size={20} />
     <span class="font-semibold">Status</span>
   </div>
 </button>

@@ -1,14 +1,16 @@
 ---
+import { Github, Twitter, Linkedin } from 'lucide-astro';
+
 const currentYear = new Date().getFullYear();
 
 const socialLinks = [
-  { name: 'GitHub', href: 'https://github.com/bytecodesky', icon: '🐙' },
-  { name: 'Twitter', href: 'https://twitter.com', icon: '🐦' },
-  { name: 'LinkedIn', href: 'https://linkedin.com', icon: '💼' },
+  { name: 'GitHub', href: 'https://github.com/bytecodesky', icon: Github },
+  { name: 'Twitter', href: 'https://twitter.com', icon: Twitter },
+  { name: 'LinkedIn', href: 'https://linkedin.com', icon: Linkedin },
 ];
 ---
 
-<footer class="border-t border-[rgba(var(--color-glass-border),0.3)] mt-16 bg-[rgba(var(--color-glass-bg),0.3)]">
+<footer class="border-t border-[rgba(var(--color-glass-border),0.08)] mt-16 bg-[rgba(var(--color-glass-bg),0.03)]">
   <div class="container mx-auto px-8 py-12">
     <div class="flex flex-col md:flex-row justify-between items-center gap-6">
       <div class="text-center md:text-left">
@@ -17,18 +19,21 @@ const socialLinks = [
         </p>
       </div>
       <div class="flex gap-6">
-        {socialLinks.map((link) => (
-          <a
-            href={link.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="flex items-center gap-2 text-[rgb(var(--color-text-tertiary))] hover:text-[rgb(var(--color-accent))] transition-colors"
-            aria-label={link.name}
-          >
-            <span class="text-xl">{link.icon}</span>
-            <span class="text-sm hidden sm:inline">{link.name}</span>
-          </a>
-        ))}
+        {socialLinks.map((link) => {
+          const Icon = link.icon;
+          return (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-2 text-[rgb(var(--color-text-tertiary))] hover:text-[rgb(var(--color-accent))] transition-colors"
+              aria-label={link.name}
+            >
+              <Icon size={20} />
+              <span class="text-sm hidden sm:inline">{link.name}</span>
+            </a>
+          );
+        })}
       </div>
     </div>
   </div>

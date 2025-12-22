@@ -1,31 +1,29 @@
 export interface StatusData {
   currentStatus: string;
-  emoji: string;
   quickLinks: {
     label: string;
     href: string;
-    icon: string;
+    icon: string; // Lucide icon name
   }[];
 }
 
 export const statusData: StatusData = {
-  currentStatus: "Building cool things with web technologies 🚀",
-  emoji: "👨‍💻",
+  currentStatus: "Building cool things with web technologies",
   quickLinks: [
     {
       label: "Email",
       href: "mailto:hello@byteco.dev",
-      icon: "✉️"
+      icon: "Mail"
     },
     {
       label: "GitHub",
       href: "https://github.com/bytecodesky",
-      icon: "🐙"
+      icon: "Github"
     },
     {
       label: "Twitter",
       href: "https://twitter.com",
-      icon: "🐦"
+      icon: "Twitter"
     }
   ]
 };

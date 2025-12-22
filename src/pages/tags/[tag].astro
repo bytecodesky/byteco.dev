@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogPostCard from '../../components/BlogPostCard.astro';
 import NoteCard from '../../components/NoteCard.astro';
 import { getAllTags, getPostsByTag, getNotesByTag } from '../../lib/content';
+import { ArrowLeft, Tag, FileText, BookOpen } from 'lucide-astro';
 
 export async function getStaticPaths() {
   const tagCounts = await getAllTags();
@@ -33,14 +34,12 @@ const totalCount = posts.length + notes.length;
         href="/tags"
         class="inline-flex items-center gap-2 text-[rgb(var(--color-text-tertiary))] hover:text-[rgb(var(--color-accent))] transition-colors mb-8"
       >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
+        <ArrowLeft size={20} />
         Back to Tags
       </a>
       
-      <div class="flex items-center gap-3 mb-6">
-        <span class="text-5xl">🏷️</span>
+      <div class="flex items-center gap-4 mb-6">
+        <Tag size={40} class="text-[rgb(var(--color-accent))]" />
         <h1 class="text-5xl font-bold text-[rgb(var(--color-text-primary))]">
           <span class="text-[rgb(var(--color-accent))]">#{tag}</span>
         </h1>
@@ -52,8 +51,9 @@ const totalCount = posts.length + notes.length;
 
     {posts.length > 0 && (
       <section class="mb-16">
-        <h2 class="text-3xl font-bold mb-8 text-[rgb(var(--color-text-primary))]">
-          📝 Blog Posts ({posts.length})
+        <h2 class="text-3xl font-bold mb-8 text-[rgb(var(--color-text-primary))] flex items-center gap-3">
+          <FileText size={28} class="text-[rgb(var(--color-accent))]" />
+          Blog Posts ({posts.length})
         </h2>
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
@@ -65,8 +65,9 @@ const totalCount = posts.length + notes.length;
 
     {notes.length > 0 && (
       <section>
-        <h2 class="text-3xl font-bold mb-8 text-[rgb(var(--color-text-primary))]">
-          📓 Notes ({notes.length})
+        <h2 class="text-3xl font-bold mb-8 text-[rgb(var(--color-text-primary))] flex items-center gap-3">
+          <BookOpen size={28} class="text-[rgb(var(--color-accent))]" />
+          Notes ({notes.length})
         </h2>
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {notes.map((note) => (

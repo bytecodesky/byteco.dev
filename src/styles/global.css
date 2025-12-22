@@ -2,14 +2,14 @@
 
 @layer base {
   :root {
-    /* Background colors - darker for modern aesthetic */
-    --color-bg-primary: 10 10 15; /* Very dark blue-black */
-    --color-bg-secondary: 17 17 25; /* Slightly lighter dark */
-    --color-bg-tertiary: 25 25 35; /* Card backgrounds */
+    /* Background colors - truly dark near-black */
+    --color-bg-primary: 5 5 5; /* Near-black #050505 */
+    --color-bg-secondary: 8 8 8; /* Slightly lighter near-black */
+    --color-bg-tertiary: 12 12 12; /* Card backgrounds */
     
-    /* Glass effect backgrounds */
-    --color-glass-bg: 20 20 30; /* Base for glass cards */
-    --color-glass-border: 40 40 55; /* Subtle borders */
+    /* Glass effect backgrounds - subtle white overlays */
+    --color-glass-bg: 255 255 255; /* White base for alpha overlays */
+    --color-glass-border: 255 255 255; /* White for subtle borders */
     
     /* Text colors */
     --color-text-primary: 248 250 252; /* slate-50 */
@@ -22,7 +22,7 @@
     --color-accent-light: 167 139 250; /* violet-400 */
     
     /* Border color */
-    --color-border: 40 40 55; /* Subtle borders */
+    --color-border: 255 255 255; /* White for subtle borders */
     
     /* Sidebar width */
     --sidebar-width: 80px;
@@ -102,7 +102,7 @@
   }
 
   .prose hr {
-    @apply my-8 border-[rgb(var(--color-border))];
+    @apply my-8 border-[rgba(var(--color-border),0.1)];
   }
 
   .prose table {
@@ -114,34 +114,34 @@
   }
 
   .prose td {
-    @apply border-t border-[rgb(var(--color-border))] p-2;
+    @apply border-t border-[rgba(var(--color-border),0.1)] p-2;
   }
 }
 
 @layer utilities {
-  /* Glass morphism styles */
+  /* Glass morphism styles with subtle white overlays */
   .glass-card {
-    background: rgba(var(--color-glass-bg), 0.6);
+    background: rgba(var(--color-glass-bg), 0.06);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(var(--color-glass-border), 0.3);
+    border: 1px solid rgba(var(--color-glass-border), 0.08);
     border-radius: 1.5rem;
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.2);
   }
 
   .glass-card-hover {
-    background: rgba(var(--color-glass-bg), 0.6);
+    background: rgba(var(--color-glass-bg), 0.06);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(var(--color-glass-border), 0.3);
+    border: 1px solid rgba(var(--color-glass-border), 0.08);
     border-radius: 1.5rem;
-    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.2);
     transition: all 0.3s ease;
   }
 
   .glass-card-hover:hover {
     border-color: rgba(var(--color-accent), 0.5);
-    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
   }
 
   .pill-button {

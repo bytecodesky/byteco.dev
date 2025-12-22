@@ -6,6 +6,7 @@ import RelatedPosts from '../../components/RelatedPosts.astro';
 import TagList from '../../components/TagList.astro';
 import { formatDate, getReadingTime } from '../../utils/helpers';
 import { getAllBlogPosts, getRelatedPosts } from '../../lib/content';
+import { ArrowLeft } from 'lucide-astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -43,9 +44,7 @@ const readingTime = getReadingTime(post.body);
         href="/blog"
         class="inline-flex items-center gap-2 text-[rgb(var(--color-text-tertiary))] hover:text-[rgb(var(--color-accent))] transition-colors mb-8"
       >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-        </svg>
+        <ArrowLeft size={20} />
         Back to Blog
       </a>
       

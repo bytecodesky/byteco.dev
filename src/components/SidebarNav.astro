@@ -1,10 +1,12 @@
 ---
+import { Home, FileText, BookOpen, User, Tag, Rocket, Github } from 'lucide-astro';
+
 const navItems = [
-  { name: 'Home', href: '/', icon: '🏠' },
-  { name: 'Blog', href: '/blog', icon: '📝' },
-  { name: 'Notes', href: '/notes', icon: '📓' },
-  { name: 'About', href: '/about', icon: '👤' },
-  { name: 'Tags', href: '/tags', icon: '🏷️' },
+  { name: 'Home', href: '/', icon: Home },
+  { name: 'Blog', href: '/blog', icon: FileText },
+  { name: 'Notes', href: '/notes', icon: BookOpen },
+  { name: 'About', href: '/about', icon: User },
+  { name: 'Tags', href: '/tags', icon: Tag },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -17,15 +19,15 @@ function isActive(href: string, currentPath: string): boolean {
 }
 ---
 
-<aside class="fixed left-0 top-0 h-screen w-[var(--sidebar-width)] z-50 flex flex-col items-center py-8 glass-card rounded-none border-r border-[rgba(var(--color-glass-border),0.3)] border-t-0 border-l-0 border-b-0">
+<aside class="fixed left-0 top-0 h-screen w-[var(--sidebar-width)] z-50 flex flex-col items-center py-8 glass-card rounded-none border-r border-[rgba(var(--color-glass-border),0.08)] border-t-0 border-l-0 border-b-0">
   <!-- Logo/Brand -->
   <a
     href="/"
     class="mb-12 text-2xl font-bold text-[rgb(var(--color-text-primary))] hover:text-[rgb(var(--color-accent))] transition-colors"
     aria-label="byteco.dev home"
   >
-    <div class="w-12 h-12 rounded-2xl glass-card flex items-center justify-center text-xl">
-      🚀
+    <div class="w-12 h-12 rounded-2xl glass-card flex items-center justify-center">
+      <Rocket size={24} />
     </div>
   </a>
 
@@ -33,18 +35,19 @@ function isActive(href: string, currentPath: string): boolean {
   <nav class="flex-1 flex flex-col gap-6">
     {navItems.map((item) => {
       const active = isActive(item.href, currentPath);
+      const Icon = item.icon;
       return (
         <a
           href={item.href}
           class={`group relative flex flex-col items-center gap-1 px-4 py-3 rounded-2xl transition-all duration-300 ${
             active
               ? 'text-[rgb(var(--color-accent))] bg-[rgba(var(--color-accent),0.1)]'
-              : 'text-[rgb(var(--color-text-tertiary))] hover:text-[rgb(var(--color-text-primary))] hover:bg-[rgba(var(--color-glass-bg),0.5)]'
+              : 'text-[rgb(var(--color-text-tertiary))] hover:text-[rgb(var(--color-text-primary))] hover:bg-[rgba(var(--color-glass-bg),0.05)]'
           }`}
           aria-label={item.name}
           title={item.name}
         >
-          <span class="text-2xl sidebar-icon">{item.icon}</span>
+          <Icon size={20} class="sidebar-icon" />
           <span class="text-xs font-medium">{item.name}</span>
           
           {/* Active indicator */}
@@ -65,7 +68,7 @@ function isActive(href: string, currentPath: string): boolean {
       class="hover:text-[rgb(var(--color-accent))] transition-colors"
       aria-label="GitHub"
     >
-      <span class="text-xl">🐙</span>
+      <Github size={20} />
     </a>
   </div>
 </aside>
