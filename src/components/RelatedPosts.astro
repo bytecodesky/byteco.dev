@@ -16,7 +16,7 @@ const { posts } = Astro.props;
       {posts.map((post) => (
         <article class="glass-card-hover p-6">
           <a href={`/blog/${post.slug}`} class="block group">
-            <h3 class="text-lg font-semibold mb-3 text-[rgb(var(--color-text-primary))] group-hover:text-[rgb(var(--color-accent))] transition-colors">
+            <h3 class="text-lg font-semibold mb-3 text-[rgb(var(--color-text-primary))] group-hover:text-[rgb(var(--color-text-secondary))] transition-colors">
               {post.data.title}
             </h3>
             <time class="text-sm text-[rgb(var(--color-text-tertiary))]" datetime={post.data.date.toISOString()}>

@@ -8,6 +8,7 @@ const iconMap: Record<string, any> = {
   Github: await import('lucide-astro').then(m => m.Github),
   Twitter: await import('lucide-astro').then(m => m.Twitter),
   Linkedin: await import('lucide-astro').then(m => m.Linkedin),
+  X: await import('lucide-astro').then(m => m.Twitter), // Using Twitter icon for X
 };
 
 const { currentStatus, quickLinks } = statusData;
@@ -43,7 +44,7 @@ const { currentStatus, quickLinks } = statusData;
     <!-- Current Status -->
     <div class="mb-8 p-6 glass-card">
       <div class="flex items-start gap-4">
-        <Activity size={32} class="text-[rgb(var(--color-accent))]" />
+        <Activity size={32} class="text-[rgb(var(--color-text-primary))]" />
         <div>
           <h3 class="text-sm font-medium text-[rgb(var(--color-text-tertiary))] mb-2">
             Current Status
@@ -71,10 +72,10 @@ const { currentStatus, quickLinks } = statusData;
               class="flex items-center gap-4 p-4 glass-card-hover group"
             >
               <Icon size={20} />
-              <span class="text-[rgb(var(--color-text-primary))] font-medium group-hover:text-[rgb(var(--color-accent))] transition-colors">
+              <span class="text-[rgb(var(--color-text-primary))] font-medium group-hover:text-[rgb(var(--color-text-secondary))] transition-colors">
                 {link.label}
               </span>
-              <ChevronRight size={20} class="ml-auto text-[rgb(var(--color-text-tertiary))] group-hover:text-[rgb(var(--color-accent))] transition-colors" />
+              <ChevronRight size={20} class="ml-auto text-[rgb(var(--color-text-tertiary))] group-hover:text-[rgb(var(--color-text-primary))] transition-colors" />
             </a>
           );
         })}
@@ -84,7 +85,7 @@ const { currentStatus, quickLinks } = statusData;
     <!-- Footer info -->
     <div class="mt-auto pt-6 border-t border-[rgba(var(--color-glass-border),0.08)]">
       <p class="text-xs text-[rgb(var(--color-text-tertiary))] text-center">
-        You can edit this status in <code class="text-[rgb(var(--color-accent))]">src/data/status.ts</code>
+        You can edit this status in <code class="text-[rgb(var(--color-text-primary))]">src/data/status.ts</code>
       </p>
     </div>
   </div>

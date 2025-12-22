@@ -41,7 +41,7 @@ const projects = [
 
     <div class="grid gap-8 md:grid-cols-2">
       {projects.map((project) => (
-        <article class="border border-[rgb(var(--color-border))] rounded-lg p-6 hover:border-[rgb(var(--color-accent))] transition-colors">
+        <article class="glass-card-hover p-6">
           <div class="flex justify-between items-start mb-3">
             <h2 class="text-2xl font-bold text-[rgb(var(--color-text-primary))]">
               {project.name}
@@ -64,7 +64,7 @@ const projects = [
             href={project.url}
             target="_blank"
             rel="noopener noreferrer"
-            class="text-[rgb(var(--color-accent))] hover:text-[rgb(var(--color-accent-hover))] font-medium"
+            class="text-[rgb(var(--color-text-primary))] hover:text-[rgb(var(--color-text-secondary))] font-medium"
           >
             View Project →
           </a>

@@ -31,14 +31,13 @@ const { title, date, tags } = note.data;
     <header class="mb-12">
       <a
         href="/notes"
-        class="inline-flex items-center gap-2 text-[rgb(var(--color-text-tertiary))] hover:text-[rgb(var(--color-accent))] transition-colors mb-8"
+        class="inline-flex items-center gap-2 text-[rgb(var(--color-text-tertiary))] hover:text-[rgb(var(--color-text-primary))] transition-colors mb-8"
       >
         <ArrowLeft size={20} />
         Back to Notes
       </a>
       
-      <div class="flex items-center gap-4 mb-6">
-        <BookOpen size={40} class="text-[rgb(var(--color-accent))]" />
+      <div class="mb-6">
         <h1 class="text-5xl font-bold text-[rgb(var(--color-text-primary))] leading-tight">
           {title}
         </h1>

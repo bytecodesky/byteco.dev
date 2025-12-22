@@ -21,11 +21,11 @@ const latestNotes = allNotes.slice(0, 3);
     <section class="mb-24 pt-12">
       <div class="max-w-4xl">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6">
-          <Sparkles size={16} class="text-[rgb(var(--color-accent))]" />
-          <span class="text-sm font-medium text-[rgb(var(--color-accent))]">Welcome</span>
+          <Sparkles size={16} class="text-[rgb(var(--color-text-primary))]" />
+          <span class="text-sm font-medium text-[rgb(var(--color-text-primary))]">Welcome</span>
         </div>
         <h1 class="text-6xl md:text-7xl font-bold mb-6 text-[rgb(var(--color-text-primary))] leading-tight">
-          Hi, I'm <span class="text-[rgb(var(--color-accent))]">byteco</span>
+          Hi, I'm <span class="text-[rgb(var(--color-text-secondary))]">byteco</span>
         </h1>
         <p class="text-xl md:text-2xl text-[rgb(var(--color-text-secondary))] leading-relaxed mb-8 max-w-3xl">
           I explore web development, programming patterns, and technology through code and writing. 
@@ -34,13 +34,13 @@ const latestNotes = allNotes.slice(0, 3);
         <div class="flex gap-4">
           <a
             href="/blog"
-            class="pill-button bg-[rgb(var(--color-accent))] text-white hover:bg-[rgb(var(--color-accent-hover))] shadow-lg hover:shadow-xl inline-flex items-center gap-2"
+            class="pill-button bg-[rgba(var(--color-glass-bg),0.15)] border border-[rgba(var(--color-glass-border),0.20)] text-[rgb(var(--color-text-primary))] hover:bg-[rgba(var(--color-glass-bg),0.20)] hover:border-[rgba(var(--color-glass-border),0.30)] shadow-lg hover:shadow-xl inline-flex items-center gap-2"
           >
             Read the Blog <ArrowRight size={18} />
           </a>
           <a
             href="/about"
-            class="pill-button glass-card text-[rgb(var(--color-text-primary))] hover:border-[rgb(var(--color-accent))]"
+            class="pill-button glass-card text-[rgb(var(--color-text-primary))] hover:border-[rgba(var(--color-glass-border),0.20)]"
           >
             About Me
           </a>
@@ -52,7 +52,7 @@ const latestNotes = allNotes.slice(0, 3);
     {(pinnedPosts.length > 0 || pinnedNotes.length > 0) && (
       <section class="mb-20">
         <div class="flex items-center gap-3 mb-8">
-          <Pin size={28} class="text-[rgb(var(--color-accent))]" />
+          <Pin size={28} class="text-[rgb(var(--color-text-primary))]" />
           <h2 class="text-3xl font-bold text-[rgb(var(--color-text-primary))]">
             Featured
           </h2>
@@ -72,12 +72,12 @@ const latestNotes = allNotes.slice(0, 3);
     <section class="mb-20">
       <div class="flex justify-between items-center mb-8">
         <div class="flex items-center gap-3">
-          <FileText size={28} class="text-[rgb(var(--color-accent))]" />
+          <FileText size={28} class="text-[rgb(var(--color-text-primary))]" />
           <h2 class="text-3xl font-bold text-[rgb(var(--color-text-primary))]">Latest Posts</h2>
         </div>
         <a
           href="/blog"
-          class="text-[rgb(var(--color-accent))] hover:text-[rgb(var(--color-accent-hover))] font-medium flex items-center gap-2 group"
+          class="text-[rgb(var(--color-text-primary))] hover:text-[rgb(var(--color-text-secondary))] font-medium flex items-center gap-2 group"
         >
           View all
           <ArrowRight size={20} class="group-hover:translate-x-1 transition-transform" />
@@ -94,12 +94,12 @@ const latestNotes = allNotes.slice(0, 3);
     <section class="mb-20">
       <div class="flex justify-between items-center mb-8">
         <div class="flex items-center gap-3">
-          <BookOpen size={28} class="text-[rgb(var(--color-accent))]" />
+          <BookOpen size={28} class="text-[rgb(var(--color-text-primary))]" />
           <h2 class="text-3xl font-bold text-[rgb(var(--color-text-primary))]">Latest Notes</h2>
         </div>
         <a
           href="/notes"
-          class="text-[rgb(var(--color-accent))] hover:text-[rgb(var(--color-accent-hover))] font-medium flex items-center gap-2 group"
+          class="text-[rgb(var(--color-text-primary))] hover:text-[rgb(var(--color-text-secondary))] font-medium flex items-center gap-2 group"
         >
           View all
           <ArrowRight size={20} class="group-hover:translate-x-1 transition-transform" />
