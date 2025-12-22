@@ -1,0 +1,46 @@
+---
+title: "Git Aliases for Productivity"
+date: 2024-02-10
+tags: ["git", "productivity", "tools"]
+draft: false
+pinned: true
+---
+
+My essential Git aliases that save time every day:
+
+## Basic Shortcuts
+
+```bash
+git config --global alias.co checkout
+git config --global alias.br branch
+git config --global alias.ci commit
+git config --global alias.st status
+```
+
+## More Powerful Aliases
+
+```bash
+# Better log
+git config --global alias.lg "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+# Undo last commit but keep changes
+git config --global alias.undo "reset HEAD~1 --mixed"
+
+# Amend without editing message
+git config --global alias.amend "commit --amend --no-edit"
+
+# Show branches sorted by last modified
+git config --global alias.recent "branch --sort=-committerdate"
+```
+
+## Cleanup Commands
+
+```bash
+# Delete merged branches
+git config --global alias.cleanup "!git branch --merged | grep -v '\\*\\|main\\|master' | xargs -n 1 git branch -d"
+
+# Prune remote branches
+git config --global alias.prune-remote "remote prune origin"
+```
+
+These aliases are in my `.gitconfig` on every machine I use.

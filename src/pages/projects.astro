@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// Static project data - can be moved to a JSON file later
+const projects = [
+  {
+    name: 'byteco.dev',
+    description: 'This personal website built with Astro, TypeScript, and Tailwind CSS. Features a blog, notes, and project showcase.',
+    tags: ['Astro', 'TypeScript', 'Tailwind CSS'],
+    url: 'https://github.com/bytecodesky/byteco.dev',
+    year: '2024',
+  },
+  {
+    name: 'Sample Project 1',
+    description: 'A demonstration project showcasing modern web development practices and patterns.',
+    tags: ['React', 'Node.js', 'PostgreSQL'],
+    url: 'https://github.com',
+    year: '2024',
+  },
+  {
+    name: 'Sample Project 2',
+    description: 'An open-source utility library for common programming tasks.',
+    tags: ['TypeScript', 'npm'],
+    url: 'https://github.com',
+    year: '2023',
+  },
+];
+---
+
+<BaseLayout
+  title="Projects - byteco.dev"
+  description="A collection of projects I've built"
+>
+  <div class="container mx-auto px-4 py-12">
+    <header class="mb-12">
+      <h1 class="text-4xl font-bold mb-4 text-[rgb(var(--color-text-primary))]">Projects</h1>
+      <p class="text-lg text-[rgb(var(--color-text-secondary))]">
+        Things I've built and contributed to.
+      </p>
+    </header>
+
+    <div class="grid gap-8 md:grid-cols-2">
+      {projects.map((project) => (
+        <article class="border border-[rgb(var(--color-border))] rounded-lg p-6 hover:border-[rgb(var(--color-accent))] transition-colors">
+          <div class="flex justify-between items-start mb-3">
+            <h2 class="text-2xl font-bold text-[rgb(var(--color-text-primary))]">
+              {project.name}
+            </h2>
+            <span class="text-sm text-[rgb(var(--color-text-tertiary))]">
+              {project.year}
+            </span>
+          </div>
+          <p class="text-[rgb(var(--color-text-secondary))] mb-4">
+            {project.description}
+          </p>
+          <div class="flex flex-wrap gap-2 mb-4">
+            {project.tags.map((tag) => (
+              <span class="text-xs px-2 py-1 bg-[rgb(var(--color-bg-secondary))] text-[rgb(var(--color-text-secondary))] rounded-full">
+                {tag}
+              </span>
+            ))}
+          </div>
+          <a
+            href={project.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-[rgb(var(--color-accent))] hover:text-[rgb(var(--color-accent-hover))] font-medium"
+          >
+            View Project →
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

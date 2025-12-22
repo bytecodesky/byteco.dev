@@ -1,0 +1,31 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import BlogPostCard from '../../components/BlogPostCard.astro';
+import { getAllBlogPosts } from '../../lib/content';
+
+const posts = await getAllBlogPosts();
+---
+
+<BaseLayout
+  title="Blog - byteco.dev"
+  description="Articles about web development, programming, and technology"
+>
+  <div class="container mx-auto px-4 py-12">
+    <header class="mb-12">
+      <h1 class="text-4xl font-bold mb-4 text-[rgb(var(--color-text-primary))]">Blog</h1>
+      <p class="text-lg text-[rgb(var(--color-text-secondary))]">
+        In-depth articles about web development, programming patterns, and technology.
+      </p>
+    </header>
+
+    {posts.length === 0 ? (
+      <p class="text-[rgb(var(--color-text-tertiary))]">No blog posts yet. Check back soon!</p>
+    ) : (
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => (
+          <BlogPostCard post={post} />
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>

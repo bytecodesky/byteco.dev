@@ -1,0 +1,30 @@
+---
+import type { BlogPost } from '../lib/content';
+import { formatDate } from '../utils/helpers';
+
+interface Props {
+  posts: BlogPost[];
+}
+
+const { posts } = Astro.props;
+---
+
+{posts.length > 0 && (
+  <section class="mt-12 pt-8 border-t border-[rgb(var(--color-border))]">
+    <h2 class="text-2xl font-bold mb-6 text-[rgb(var(--color-text-primary))]">Related Posts</h2>
+    <div class="grid gap-4 md:grid-cols-3">
+      {posts.map((post) => (
+        <article class="border border-[rgb(var(--color-border))] rounded-lg p-4 hover:border-[rgb(var(--color-accent))] transition-colors">
+          <a href={`/blog/${post.slug}`} class="block group">
+            <h3 class="font-semibold mb-2 text-[rgb(var(--color-text-primary))] group-hover:text-[rgb(var(--color-accent))] transition-colors">
+              {post.data.title}
+            </h3>
+            <time class="text-xs text-[rgb(var(--color-text-tertiary))]" datetime={post.data.date.toISOString()}>
+              {formatDate(post.data.date)}
+            </time>
+          </a>
+        </article>
+      ))}
+    </div>
+  </section>
+)}

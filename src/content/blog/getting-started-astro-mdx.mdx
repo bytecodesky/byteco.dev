@@ -1,0 +1,60 @@
+---
+title: "Getting Started with Astro and MDX"
+description: "Discover how Astro and MDX combine to create a powerful content authoring experience with component-driven flexibility."
+date: 2024-01-15
+tags: ["astro", "mdx", "web-development"]
+draft: false
+pinned: true
+---
+
+## Introduction
+
+Astro has become one of my favorite frameworks for building content-focused websites. When combined with MDX, it offers an incredibly powerful authoring experience that bridges the gap between writing markdown and building interactive components.
+
+## Why Astro?
+
+Astro's island architecture is brilliant for content sites:
+
+- **Zero JavaScript by default**: Ship only what you need
+- **Framework agnostic**: Use React, Vue, Svelte, or plain HTML
+- **Content collections**: Type-safe content management
+- **Fast builds**: Optimized for performance
+
+## MDX Integration
+
+MDX brings the best of both worlds:
+
+```jsx
+import MyComponent from '../components/MyComponent.astro';
+
+# This is markdown
+
+<MyComponent prop="value" />
+
+Still markdown here!
+```
+
+This flexibility means you can:
+
+1. Write primarily in markdown for speed
+2. Add interactive components where needed
+3. Maintain type safety throughout
+
+## Content Collections
+
+Astro's content collections provide schema validation:
+
+```typescript
+const blog = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    date: z.coerce.date(),
+  }),
+});
+```
+
+## Conclusion
+
+The combination of Astro and MDX creates a sweet spot for developer experience and user experience. You get the authoring speed of markdown with the power of components when you need them.

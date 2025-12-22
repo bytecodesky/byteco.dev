@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="About - byteco.dev"
+  description="About me and this site"
+>
+  <div class="container mx-auto px-4 py-12 max-w-3xl">
+    <header class="mb-12">
+      <h1 class="text-4xl font-bold mb-4 text-[rgb(var(--color-text-primary))]">About</h1>
+    </header>
+
+    <div class="prose">
+      <section class="mb-12">
+        <h2>Hi, I'm byteco 👋</h2>
+        <p>
+          I'm a software developer passionate about web technologies, clean code, and building
+          useful tools. This site is where I share my thoughts on programming, document learnings,
+          and showcase projects.
+        </p>
+      </section>
+
+      <section class="mb-12">
+        <h2>What I Work With</h2>
+        <p>
+          My primary focus is on modern web development using TypeScript, React, and Node.js.
+          I enjoy exploring new frameworks and technologies, particularly those that improve
+          developer experience and user experience.
+        </p>
+        <p>
+          Current interests include:
+        </p>
+        <ul>
+          <li>Full-stack TypeScript development</li>
+          <li>Static site generation with Astro</li>
+          <li>Modern CSS and design systems</li>
+          <li>Developer tooling and automation</li>
+        </ul>
+      </section>
+
+      <section class="mb-12">
+        <h2>About This Site</h2>
+        <p>
+          This site is built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>,
+          styled with <a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer">Tailwind CSS</a>,
+          and deployed on <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">Vercel</a>.
+          Content is authored in MDX and managed through Astro's Content Collections.
+        </p>
+        <p>
+          The source code is available on
+          <a href="https://github.com/bytecodesky/byteco.dev" target="_blank" rel="noopener noreferrer">GitHub</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2>Get in Touch</h2>
+        <p>
+          Feel free to reach out if you want to discuss web development, collaborate on a project,
+          or just say hi!
+        </p>
+        <ul>
+          <li><a href="https://github.com/bytecodesky" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a></li>
+          <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</BaseLayout>
