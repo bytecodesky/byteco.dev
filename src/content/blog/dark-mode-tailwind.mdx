@@ -1,0 +1,85 @@
+---
+title: "Building Dark Mode Sites with Tailwind CSS"
+description: "A comprehensive guide to implementing beautiful dark mode interfaces using Tailwind CSS and CSS custom properties."
+date: 2024-02-20
+tags: ["css", "tailwind", "design", "dark-mode"]
+draft: false
+pinned: false
+---
+
+## The Rise of Dark Mode
+
+Dark mode has evolved from a niche preference to a standard feature in modern web applications. Users expect it, and implementing it well can significantly improve user experience, especially for content-heavy sites.
+
+## Why Tailwind for Dark Mode?
+
+Tailwind CSS makes dark mode implementation straightforward with its built-in `dark:` variant:
+
+```html
+<div class="bg-white dark:bg-slate-900 text-slate-900 dark:text-slate-100">
+  Content that adapts to dark mode
+</div>
+```
+
+## CSS Custom Properties Approach
+
+For more flexibility, I prefer using CSS custom properties with Tailwind:
+
+```css
+:root {
+  --color-bg: 255 255 255;
+  --color-text: 15 23 42;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: 15 23 42;
+    --color-text: 241 245 249;
+  }
+}
+```
+
+Then in your Tailwind config:
+
+```javascript
+theme: {
+  extend: {
+    colors: {
+      bg: 'rgb(var(--color-bg) / <alpha-value>)',
+      text: 'rgb(var(--color-text) / <alpha-value>)',
+    }
+  }
+}
+```
+
+## Design Considerations
+
+When implementing dark mode:
+
+1. **Contrast is crucial**: Ensure text remains readable
+2. **Reduce pure whites and blacks**: Use softer tones
+3. **Adjust colors**: Some colors need different saturation in dark mode
+4. **Test with real content**: Always verify with actual text and images
+
+## Code Syntax Highlighting
+
+Don't forget about code blocks! They need special attention in dark mode. Consider using a dark-friendly syntax theme like:
+
+- Night Owl
+- Dracula
+- Nord
+
+## Accessibility
+
+Always respect user preferences:
+
+```javascript
+const darkMode = window.matchMedia('(prefers-color-scheme: dark)');
+darkMode.addEventListener('change', (e) => {
+  // Handle theme change
+});
+```
+
+## Conclusion
+
+Dark mode isn't just about inverting colors. It's about creating a cohesive, comfortable experience that respects user preferences and maintains your design's integrity across both modes.

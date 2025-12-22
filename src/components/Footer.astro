@@ -1,0 +1,32 @@
+---
+const currentYear = new Date().getFullYear();
+
+const socialLinks = [
+  { name: 'GitHub', href: 'https://github.com/bytecodesky', icon: 'github' },
+  { name: 'Twitter', href: 'https://twitter.com', icon: 'twitter' },
+  { name: 'LinkedIn', href: 'https://linkedin.com', icon: 'linkedin' },
+];
+---
+
+<footer class="border-t border-[rgb(var(--color-border))] mt-16">
+  <div class="container mx-auto px-4 py-8">
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-sm text-[rgb(var(--color-text-tertiary))]">
+        &copy; {currentYear} byteco.dev. All rights reserved.
+      </p>
+      <div class="flex gap-6">
+        {socialLinks.map((link) => (
+          <a
+            href={link.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-[rgb(var(--color-text-tertiary))] hover:text-[rgb(var(--color-accent))] transition-colors"
+            aria-label={link.name}
+          >
+            {link.name}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,57 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
+import TagList from '../../components/TagList.astro';
+import { formatDate } from '../../utils/helpers';
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes');
+  return notes.map((note) => ({
+    params: { slug: note.slug },
+    props: { note },
+  }));
+}
+
+interface Props {
+  note: CollectionEntry<'notes'>;
+}
+
+const { note } = Astro.props;
+const { Content, headings } = await note.render();
+const { title, date, tags } = note.data;
+---
+
+<BaseLayout
+  title={`${title} - byteco.dev`}
+  description={`Note: ${title}`}
+>
+  <article class="container mx-auto px-4 py-12 max-w-4xl">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold mb-4 text-[rgb(var(--color-text-primary))]">
+        {title}
+      </h1>
+      <time class="text-sm text-[rgb(var(--color-text-tertiary))]" datetime={date.toISOString()}>
+        {formatDate(date)}
+      </time>
+      {tags.length > 0 && (
+        <div class="mt-4">
+          <TagList tags={tags} />
+        </div>
+      )}
+    </header>
+
+    <div class="grid md:grid-cols-[1fr_250px] gap-8">
+      <div class="prose">
+        <Content />
+      </div>
+      {headings.length > 0 && (
+        <aside class="hidden md:block">
+          <div class="sticky top-24">
+            <TableOfContents headings={headings} />
+          </div>
+        </aside>
+      )}
+    </div>
+  </article>
+</BaseLayout>

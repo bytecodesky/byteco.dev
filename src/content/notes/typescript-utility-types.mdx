@@ -1,0 +1,63 @@
+---
+title: "TypeScript Utility Types Cheatsheet"
+date: 2024-01-28
+tags: ["typescript", "programming"]
+draft: false
+pinned: false
+---
+
+Quick reference for TypeScript's built-in utility types that I use frequently:
+
+## Pick and Omit
+
+```typescript
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  password: string;
+};
+
+// Pick only what you need
+type PublicUser = Pick<User, 'id' | 'name'>;
+
+// Omit what you don't want
+type UserWithoutPassword = Omit<User, 'password'>;
+```
+
+## Partial and Required
+
+```typescript
+// All properties optional
+type PartialUser = Partial<User>;
+
+// All properties required
+type RequiredUser = Required<User>;
+```
+
+## Record
+
+Great for typed objects:
+
+```typescript
+type UserRoles = Record<string, 'admin' | 'user' | 'guest'>;
+
+const roles: UserRoles = {
+  'user-1': 'admin',
+  'user-2': 'user',
+};
+```
+
+## ReturnType
+
+Extract the return type of a function:
+
+```typescript
+function getUser() {
+  return { id: '1', name: 'John' };
+}
+
+type User = ReturnType<typeof getUser>;
+```
+
+These utilities make TypeScript code more maintainable and DRY.

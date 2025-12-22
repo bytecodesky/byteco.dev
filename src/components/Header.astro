@@ -1,0 +1,42 @@
+---
+const navItems = [
+  { name: 'Blog', href: '/blog' },
+  { name: 'Notes', href: '/notes' },
+  { name: 'Projects', href: '/projects' },
+  { name: 'About', href: '/about' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 bg-[rgb(var(--color-bg-primary))]/95 backdrop-blur-sm border-b border-[rgb(var(--color-border))]">
+  <nav class="container mx-auto px-4 py-4">
+    <div class="flex items-center justify-between">
+      <a
+        href="/"
+        class="text-xl font-bold text-[rgb(var(--color-text-primary))] hover:text-[rgb(var(--color-accent))] transition-colors"
+      >
+        byteco<span class="text-[rgb(var(--color-accent))]">.dev</span>
+      </a>
+      <ul class="flex gap-6">
+        {navItems.map((item) => {
+          const isActive = currentPath === item.href || currentPath.startsWith(item.href + '/');
+          return (
+            <li>
+              <a
+                href={item.href}
+                class={`text-sm font-medium transition-colors ${
+                  isActive
+                    ? 'text-[rgb(var(--color-accent))]'
+                    : 'text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))]'
+                }`}
+              >
+                {item.name}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  </nav>
+</header>

@@ -1,0 +1,75 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TableOfContents from '../../components/TableOfContents.astro';
+import RelatedPosts from '../../components/RelatedPosts.astro';
+import TagList from '../../components/TagList.astro';
+import { formatDate, getReadingTime } from '../../utils/helpers';
+import { getAllBlogPosts, getRelatedPosts } from '../../lib/content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+const { Content, headings } = await post.render();
+const { title, description, date, tags } = post.data;
+
+const allPosts = await getAllBlogPosts();
+const relatedPosts = getRelatedPosts(post, allPosts);
+
+// Get reading time from the rendered content
+const readingTime = getReadingTime(post.body);
+---
+
+<BaseLayout
+  title={`${title} - byteco.dev`}
+  description={description}
+  article={true}
+  publishedTime={date}
+  tags={tags}
+>
+  <article class="container mx-auto px-4 py-12 max-w-4xl">
+    <header class="mb-8">
+      <h1 class="text-4xl font-bold mb-4 text-[rgb(var(--color-text-primary))]">
+        {title}
+      </h1>
+      <p class="text-xl text-[rgb(var(--color-text-secondary))] mb-4">
+        {description}
+      </p>
+      <div class="flex items-center gap-4 text-sm text-[rgb(var(--color-text-tertiary))]">
+        <time datetime={date.toISOString()}>
+          {formatDate(date)}
+        </time>
+        <span>•</span>
+        <span>{readingTime}</span>
+      </div>
+      {tags.length > 0 && (
+        <div class="mt-4">
+          <TagList tags={tags} />
+        </div>
+      )}
+    </header>
+
+    <div class="grid md:grid-cols-[1fr_250px] gap-8">
+      <div class="prose">
+        <Content />
+      </div>
+      <aside class="hidden md:block">
+        <div class="sticky top-24">
+          <TableOfContents headings={headings} />
+        </div>
+      </aside>
+    </div>
+
+    <RelatedPosts posts={relatedPosts} />
+  </article>
+</BaseLayout>
