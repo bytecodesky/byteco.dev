@@ -21,9 +21,14 @@ export const statusData: StatusData = {
       icon: "Github"
     },
     {
-      label: "Twitter",
+      label: "X",
       href: "https://twitter.com",
-      icon: "Twitter"
+      icon: "X"
+    },
+    {
+      label: "LinkedIn",
+      href: "https://linkedin.com",
+      icon: "Linkedin"
     }
   ]
 };

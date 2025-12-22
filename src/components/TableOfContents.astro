@@ -19,7 +19,7 @@ const filteredHeadings = headings.filter((h) => h.depth <= 3);
         <li class={heading.depth === 3 ? 'ml-4' : ''}>
           <a
             href={`#${heading.slug}`}
-            class="text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-accent))] transition-colors block py-1"
+            class="text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors block py-1"
           >
             {heading.text}
           </a>

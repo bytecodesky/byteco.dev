@@ -32,16 +32,16 @@ const totalCount = posts.length + notes.length;
     <header class="mb-16">
       <a
         href="/tags"
-        class="inline-flex items-center gap-2 text-[rgb(var(--color-text-tertiary))] hover:text-[rgb(var(--color-accent))] transition-colors mb-8"
+        class="inline-flex items-center gap-2 text-[rgb(var(--color-text-tertiary))] hover:text-[rgb(var(--color-text-primary))] transition-colors mb-8"
       >
         <ArrowLeft size={20} />
         Back to Tags
       </a>
       
       <div class="flex items-center gap-4 mb-6">
-        <Tag size={40} class="text-[rgb(var(--color-accent))]" />
+        <Tag size={40} class="text-[rgb(var(--color-text-primary))]" />
         <h1 class="text-5xl font-bold text-[rgb(var(--color-text-primary))]">
-          <span class="text-[rgb(var(--color-accent))]">#{tag}</span>
+          <span class="text-[rgb(var(--color-text-secondary))]">#{tag}</span>
         </h1>
       </div>
       <p class="text-xl text-[rgb(var(--color-text-secondary))]">
@@ -52,7 +52,7 @@ const totalCount = posts.length + notes.length;
     {posts.length > 0 && (
       <section class="mb-16">
         <h2 class="text-3xl font-bold mb-8 text-[rgb(var(--color-text-primary))] flex items-center gap-3">
-          <FileText size={28} class="text-[rgb(var(--color-accent))]" />
+          <FileText size={28} class="text-[rgb(var(--color-text-primary))]" />
           Blog Posts ({posts.length})
         </h2>
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -66,7 +66,7 @@ const totalCount = posts.length + notes.length;
     {notes.length > 0 && (
       <section>
         <h2 class="text-3xl font-bold mb-8 text-[rgb(var(--color-text-primary))] flex items-center gap-3">
-          <BookOpen size={28} class="text-[rgb(var(--color-accent))]" />
+          <BookOpen size={28} class="text-[rgb(var(--color-text-primary))]" />
           Notes ({notes.length})
         </h2>
         <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

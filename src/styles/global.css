@@ -16,16 +16,13 @@
     --color-text-secondary: 226 232 240; /* slate-200 */
     --color-text-tertiary: 148 163 184; /* slate-400 */
     
-    /* Accent colors - vibrant for contrast */
-    --color-accent: 139 92 246; /* violet-500 */
-    --color-accent-hover: 124 58 237; /* violet-600 */
-    --color-accent-light: 167 139 250; /* violet-400 */
+    /* Accent colors - grayscale for strict black & white theme */
+    --color-accent: 248 250 252; /* slate-50 - white/light gray */
+    --color-accent-hover: 226 232 240; /* slate-200 - slightly darker gray */
+    --color-accent-light: 203 213 225; /* slate-300 - medium gray */
     
     /* Border color */
     --color-border: 255 255 255; /* White for subtle borders */
-    
-    /* Sidebar width */
-    --sidebar-width: 80px;
   }
 
   html {
@@ -37,9 +34,9 @@
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
 
-  /* Focus styles for accessibility */
+  /* Focus styles for accessibility - grayscale */
   *:focus-visible {
-    @apply outline-2 outline-offset-2 outline-[rgb(var(--color-accent))];
+    @apply outline-2 outline-offset-2 outline-[rgb(var(--color-text-primary))];
   }
 
   /* Code block styling */
@@ -52,7 +49,7 @@
   }
 
   :not(pre) > code {
-    @apply bg-[rgb(var(--color-bg-secondary))] px-1.5 py-0.5 rounded text-[rgb(var(--color-accent))];
+    @apply bg-[rgb(var(--color-bg-secondary))] px-1.5 py-0.5 rounded text-[rgb(var(--color-text-primary))];
   }
 
   /* Prose styling for MDX content */
@@ -86,7 +83,7 @@
   }
 
   .prose a {
-    @apply text-[rgb(var(--color-accent))] hover:text-[rgb(var(--color-accent-hover))] underline;
+    @apply text-[rgb(var(--color-text-primary))] hover:text-[rgb(var(--color-text-secondary))] underline;
   }
 
   .prose strong {
@@ -94,7 +91,7 @@
   }
 
   .prose blockquote {
-    @apply border-l-4 border-[rgb(var(--color-accent))] pl-4 italic my-4 text-[rgb(var(--color-text-tertiary))];
+    @apply border-l-4 border-[rgb(var(--color-text-tertiary))] pl-4 italic my-4 text-[rgb(var(--color-text-tertiary))];
   }
 
   .prose img {
@@ -140,30 +137,30 @@
   }
 
   .glass-card-hover:hover {
-    border-color: rgba(var(--color-accent), 0.5);
+    border-color: rgba(var(--color-glass-border), 0.20);
     box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
   }
 
   /* Stronger glassmorphism for post/note cards */
   .glass-card--strong {
-    background: rgba(var(--color-glass-bg), 0.06);
-    backdrop-filter: blur(18px) saturate(140%);
-    -webkit-backdrop-filter: blur(18px) saturate(140%);
-    border: 1px solid rgba(var(--color-glass-border), 0.10);
+    background: rgba(var(--color-glass-bg), 0.08);
+    backdrop-filter: blur(20px) saturate(150%);
+    -webkit-backdrop-filter: blur(20px) saturate(150%);
+    border: 1px solid rgba(var(--color-glass-border), 0.12);
     border-radius: 1.5rem;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
     transition: all 0.3s ease;
   }
 
   .glass-card--strong:hover {
-    background: rgba(var(--color-glass-bg), 0.08);
-    border-color: rgba(167, 139, 250, 0.35);
+    background: rgba(var(--color-glass-bg), 0.10);
+    border-color: rgba(var(--color-glass-border), 0.18);
     transform: translateY(-1px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.65);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
   }
 
   .glass-card--strong:focus-within {
-    outline: 2px solid rgba(var(--color-accent), 0.5);
+    outline: 2px solid rgba(var(--color-glass-border), 0.3);
     outline-offset: 2px;
   }
 
