@@ -10,16 +10,16 @@ const filteredHeadings = headings.filter((h) => h.depth <= 3);
 ---
 
 {filteredHeadings.length > 0 && (
-  <nav class="toc" aria-labelledby="toc-heading">
+  <nav class="glass-card p-6" aria-labelledby="toc-heading">
     <h2 id="toc-heading" class="text-lg font-semibold mb-4 text-[rgb(var(--color-text-primary))]">
       Table of Contents
     </h2>
-    <ul class="space-y-2">
+    <ul class="space-y-3">
       {filteredHeadings.map((heading) => (
         <li class={heading.depth === 3 ? 'ml-4' : ''}>
           <a
             href={`#${heading.slug}`}
-            class="text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-accent))] transition-colors block"
+            class="text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-accent))] transition-colors block py-1"
           >
             {heading.text}
           </a>

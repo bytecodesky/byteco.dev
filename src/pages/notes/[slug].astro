@@ -26,28 +26,43 @@ const { title, date, tags } = note.data;
   title={`${title} - byteco.dev`}
   description={`Note: ${title}`}
 >
-  <article class="container mx-auto px-4 py-12 max-w-4xl">
-    <header class="mb-8">
-      <h1 class="text-4xl font-bold mb-4 text-[rgb(var(--color-text-primary))]">
-        {title}
-      </h1>
+  <article class="container mx-auto px-8 py-16 max-w-5xl">
+    <header class="mb-12">
+      <a
+        href="/notes"
+        class="inline-flex items-center gap-2 text-[rgb(var(--color-text-tertiary))] hover:text-[rgb(var(--color-accent))] transition-colors mb-8"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        Back to Notes
+      </a>
+      
+      <div class="flex items-center gap-3 mb-6">
+        <span class="text-5xl">📓</span>
+        <h1 class="text-5xl font-bold text-[rgb(var(--color-text-primary))] leading-tight">
+          {title}
+        </h1>
+      </div>
       <time class="text-sm text-[rgb(var(--color-text-tertiary))]" datetime={date.toISOString()}>
         {formatDate(date)}
       </time>
       {tags.length > 0 && (
-        <div class="mt-4">
+        <div class="mt-6">
           <TagList tags={tags} />
         </div>
       )}
     </header>
 
-    <div class="grid md:grid-cols-[1fr_250px] gap-8">
-      <div class="prose">
-        <Content />
+    <div class="grid md:grid-cols-[1fr_280px] gap-12">
+      <div class="glass-card p-8 md:p-12">
+        <div class="prose">
+          <Content />
+        </div>
       </div>
       {headings.length > 0 && (
         <aside class="hidden md:block">
-          <div class="sticky top-24">
+          <div class="sticky top-8">
             <TableOfContents headings={headings} />
           </div>
         </aside>

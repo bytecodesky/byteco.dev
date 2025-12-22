@@ -1,0 +1,29 @@
+---
+// This is a client-side interactive component, but we'll use vanilla JS for simplicity
+---
+
+<button
+  id="status-button"
+  class="fixed bottom-8 right-8 z-50 glass-card px-6 py-4 text-[rgb(var(--color-text-primary))] hover:text-[rgb(var(--color-accent))] hover:scale-105 transition-all duration-300 shadow-2xl"
+  aria-label="Open status panel"
+>
+  <div class="flex items-center gap-3">
+    <span class="text-2xl">👋</span>
+    <span class="font-semibold">Status</span>
+  </div>
+</button>
+
+<script>
+  const button = document.getElementById('status-button');
+  if (button) {
+    button.addEventListener('click', () => {
+      const panel = document.getElementById('status-panel');
+      const overlay = document.getElementById('status-overlay');
+      if (panel && overlay) {
+        panel.classList.remove('translate-x-full');
+        panel.classList.add('translate-x-0');
+        overlay.classList.remove('hidden');
+      }
+    });
+  }
+</script>

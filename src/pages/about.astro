@@ -6,64 +6,96 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   title="About - byteco.dev"
   description="About me and this site"
 >
-  <div class="container mx-auto px-4 py-12 max-w-3xl">
-    <header class="mb-12">
-      <h1 class="text-4xl font-bold mb-4 text-[rgb(var(--color-text-primary))]">About</h1>
+  <div class="container mx-auto px-8 py-16 max-w-4xl">
+    <header class="mb-16">
+      <div class="flex items-center gap-3 mb-6">
+        <span class="text-5xl">👤</span>
+        <h1 class="text-5xl font-bold text-[rgb(var(--color-text-primary))]">About</h1>
+      </div>
     </header>
 
-    <div class="prose">
-      <section class="mb-12">
-        <h2>Hi, I'm byteco 👋</h2>
-        <p>
-          I'm a software developer passionate about web technologies, clean code, and building
-          useful tools. This site is where I share my thoughts on programming, document learnings,
-          and showcase projects.
-        </p>
+    <div class="space-y-8">
+      <section class="glass-card p-8 md:p-12">
+        <h2 class="text-3xl font-bold mb-6 text-[rgb(var(--color-text-primary))]">Hi, I'm byteco 👋</h2>
+        <div class="prose">
+          <p>
+            I'm a software developer passionate about web technologies, clean code, and building
+            useful tools. This site is where I share my thoughts on programming, document learnings,
+            and showcase my work.
+          </p>
+        </div>
       </section>
 
-      <section class="mb-12">
-        <h2>What I Work With</h2>
-        <p>
-          My primary focus is on modern web development using TypeScript, React, and Node.js.
-          I enjoy exploring new frameworks and technologies, particularly those that improve
-          developer experience and user experience.
-        </p>
-        <p>
-          Current interests include:
-        </p>
-        <ul>
-          <li>Full-stack TypeScript development</li>
-          <li>Static site generation with Astro</li>
-          <li>Modern CSS and design systems</li>
-          <li>Developer tooling and automation</li>
-        </ul>
+      <section class="glass-card p-8 md:p-12">
+        <h2 class="text-3xl font-bold mb-6 text-[rgb(var(--color-text-primary))]">What I Work With</h2>
+        <div class="prose">
+          <p>
+            My primary focus is on modern web development using TypeScript, React, and Node.js.
+            I enjoy exploring new frameworks and technologies, particularly those that improve
+            developer experience and user experience.
+          </p>
+          <p>
+            Current interests include:
+          </p>
+          <ul>
+            <li>Full-stack TypeScript development</li>
+            <li>Static site generation with Astro</li>
+            <li>Modern CSS and design systems</li>
+            <li>Developer tooling and automation</li>
+          </ul>
+        </div>
       </section>
 
-      <section class="mb-12">
-        <h2>About This Site</h2>
-        <p>
-          This site is built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>,
-          styled with <a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer">Tailwind CSS</a>,
-          and deployed on <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">Vercel</a>.
-          Content is authored in MDX and managed through Astro's Content Collections.
-        </p>
-        <p>
-          The source code is available on
-          <a href="https://github.com/bytecodesky/byteco.dev" target="_blank" rel="noopener noreferrer">GitHub</a>.
-        </p>
+      <section class="glass-card p-8 md:p-12">
+        <h2 class="text-3xl font-bold mb-6 text-[rgb(var(--color-text-primary))]">About This Site</h2>
+        <div class="prose">
+          <p>
+            This site is built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>,
+            styled with <a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer">Tailwind CSS</a>,
+            and deployed on <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">Vercel</a>.
+            Content is authored in MDX and managed through Astro's Content Collections.
+          </p>
+          <p>
+            The source code is available on
+            <a href="https://github.com/bytecodesky/byteco.dev" target="_blank" rel="noopener noreferrer">GitHub</a>.
+          </p>
+        </div>
       </section>
 
-      <section>
-        <h2>Get in Touch</h2>
-        <p>
-          Feel free to reach out if you want to discuss web development, collaborate on a project,
-          or just say hi!
-        </p>
-        <ul>
-          <li><a href="https://github.com/bytecodesky" target="_blank" rel="noopener noreferrer">GitHub</a></li>
-          <li><a href="https://twitter.com" target="_blank" rel="noopener noreferrer">Twitter</a></li>
-          <li><a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
-        </ul>
+      <section class="glass-card p-8 md:p-12">
+        <h2 class="text-3xl font-bold mb-6 text-[rgb(var(--color-text-primary))]">Get in Touch</h2>
+        <div class="prose">
+          <p>
+            Feel free to reach out if you want to discuss web development, collaborate on a project,
+            or just say hi!
+          </p>
+          <div class="flex flex-wrap gap-4 mt-6">
+            <a 
+              href="https://github.com/bytecodesky" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="pill-button glass-card hover:border-[rgb(var(--color-accent))] no-underline"
+            >
+              🐙 GitHub
+            </a>
+            <a 
+              href="https://twitter.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="pill-button glass-card hover:border-[rgb(var(--color-accent))] no-underline"
+            >
+              🐦 Twitter
+            </a>
+            <a 
+              href="https://linkedin.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              class="pill-button glass-card hover:border-[rgb(var(--color-accent))] no-underline"
+            >
+              💼 LinkedIn
+            </a>
+          </div>
+        </div>
       </section>
     </div>
   </div>

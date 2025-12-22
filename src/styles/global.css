@@ -2,15 +2,30 @@
 
 @layer base {
   :root {
-    --color-bg-primary: 15 23 42; /* slate-900 */
-    --color-bg-secondary: 30 41 59; /* slate-800 */
-    --color-bg-tertiary: 51 65 85; /* slate-700 */
+    /* Background colors - darker for modern aesthetic */
+    --color-bg-primary: 10 10 15; /* Very dark blue-black */
+    --color-bg-secondary: 17 17 25; /* Slightly lighter dark */
+    --color-bg-tertiary: 25 25 35; /* Card backgrounds */
+    
+    /* Glass effect backgrounds */
+    --color-glass-bg: 20 20 30; /* Base for glass cards */
+    --color-glass-border: 40 40 55; /* Subtle borders */
+    
+    /* Text colors */
     --color-text-primary: 248 250 252; /* slate-50 */
     --color-text-secondary: 226 232 240; /* slate-200 */
     --color-text-tertiary: 148 163 184; /* slate-400 */
+    
+    /* Accent colors - vibrant for contrast */
     --color-accent: 139 92 246; /* violet-500 */
     --color-accent-hover: 124 58 237; /* violet-600 */
-    --color-border: 51 65 85; /* slate-700 */
+    --color-accent-light: 167 139 250; /* violet-400 */
+    
+    /* Border color */
+    --color-border: 40 40 55; /* Subtle borders */
+    
+    /* Sidebar width */
+    --sidebar-width: 80px;
   }
 
   html {
@@ -100,5 +115,45 @@
 
   .prose td {
     @apply border-t border-[rgb(var(--color-border))] p-2;
+  }
+}
+
+@layer utilities {
+  /* Glass morphism styles */
+  .glass-card {
+    background: rgba(var(--color-glass-bg), 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(var(--color-glass-border), 0.3);
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  }
+
+  .glass-card-hover {
+    background: rgba(var(--color-glass-bg), 0.6);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(var(--color-glass-border), 0.3);
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .glass-card-hover:hover {
+    border-color: rgba(var(--color-accent), 0.5);
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+  }
+
+  .pill-button {
+    border-radius: 9999px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .sidebar-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    transition: all 0.3s ease;
   }
 }
