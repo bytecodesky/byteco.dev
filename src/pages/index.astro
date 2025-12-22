@@ -3,6 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import BlogPostCard from '../components/BlogPostCard.astro';
 import NoteCard from '../components/NoteCard.astro';
 import { getAllBlogPosts, getAllNotes } from '../lib/content';
+import { Sparkles, Pin, FileText, BookOpen, ArrowRight } from 'lucide-astro';
 
 const allPosts = await getAllBlogPosts();
 const allNotes = await getAllNotes();
@@ -15,23 +16,47 @@ const latestNotes = allNotes.slice(0, 3);
 ---
 
 <BaseLayout>
-  <div class="container mx-auto px-4 py-12">
+  <div class="container mx-auto px-8 py-16">
     <!-- Hero Section -->
-    <section class="mb-16 text-center">
-      <h1 class="text-5xl font-bold mb-4 text-[rgb(var(--color-text-primary))]">
-        Welcome to <span class="text-[rgb(var(--color-accent))]">byteco.dev</span>
-      </h1>
-      <p class="text-xl text-[rgb(var(--color-text-secondary))] max-w-2xl mx-auto">
-        Exploring web development, programming patterns, and technology through code and writing.
-      </p>
+    <section class="mb-24 pt-12">
+      <div class="max-w-4xl">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6">
+          <Sparkles size={16} class="text-[rgb(var(--color-accent))]" />
+          <span class="text-sm font-medium text-[rgb(var(--color-accent))]">Welcome</span>
+        </div>
+        <h1 class="text-6xl md:text-7xl font-bold mb-6 text-[rgb(var(--color-text-primary))] leading-tight">
+          Hi, I'm <span class="text-[rgb(var(--color-accent))]">byteco</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-[rgb(var(--color-text-secondary))] leading-relaxed mb-8 max-w-3xl">
+          I explore web development, programming patterns, and technology through code and writing. 
+          Building modern web experiences with TypeScript, React, and Astro.
+        </p>
+        <div class="flex gap-4">
+          <a
+            href="/blog"
+            class="pill-button bg-[rgb(var(--color-accent))] text-white hover:bg-[rgb(var(--color-accent-hover))] shadow-lg hover:shadow-xl inline-flex items-center gap-2"
+          >
+            Read the Blog <ArrowRight size={18} />
+          </a>
+          <a
+            href="/about"
+            class="pill-button glass-card text-[rgb(var(--color-text-primary))] hover:border-[rgb(var(--color-accent))]"
+          >
+            About Me
+          </a>
+        </div>
+      </div>
     </section>
 
     <!-- Pinned Content -->
     {(pinnedPosts.length > 0 || pinnedNotes.length > 0) && (
-      <section class="mb-16">
-        <h2 class="text-3xl font-bold mb-6 text-[rgb(var(--color-text-primary))]">
-          📌 Pinned
-        </h2>
+      <section class="mb-20">
+        <div class="flex items-center gap-3 mb-8">
+          <Pin size={28} class="text-[rgb(var(--color-accent))]" />
+          <h2 class="text-3xl font-bold text-[rgb(var(--color-text-primary))]">
+            Featured
+          </h2>
+        </div>
         <div class="grid gap-6 md:grid-cols-2">
           {pinnedPosts.map((post) => (
             <BlogPostCard post={post} />
@@ -44,14 +69,18 @@ const latestNotes = allNotes.slice(0, 3);
     )}
 
     <!-- Latest Blog Posts -->
-    <section class="mb-16">
-      <div class="flex justify-between items-center mb-6">
-        <h2 class="text-3xl font-bold text-[rgb(var(--color-text-primary))]">Latest Posts</h2>
+    <section class="mb-20">
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center gap-3">
+          <FileText size={28} class="text-[rgb(var(--color-accent))]" />
+          <h2 class="text-3xl font-bold text-[rgb(var(--color-text-primary))]">Latest Posts</h2>
+        </div>
         <a
           href="/blog"
-          class="text-[rgb(var(--color-accent))] hover:text-[rgb(var(--color-accent-hover))] font-medium"
+          class="text-[rgb(var(--color-accent))] hover:text-[rgb(var(--color-accent-hover))] font-medium flex items-center gap-2 group"
         >
-          View all →
+          View all
+          <ArrowRight size={20} class="group-hover:translate-x-1 transition-transform" />
         </a>
       </div>
       <div class="grid gap-6 md:grid-cols-3">
@@ -62,14 +91,18 @@ const latestNotes = allNotes.slice(0, 3);
     </section>
 
     <!-- Latest Notes -->
-    <section>
-      <div class="flex justify-between items-center mb-6">
-        <h2 class="text-3xl font-bold text-[rgb(var(--color-text-primary))]">Latest Notes</h2>
+    <section class="mb-20">
+      <div class="flex justify-between items-center mb-8">
+        <div class="flex items-center gap-3">
+          <BookOpen size={28} class="text-[rgb(var(--color-accent))]" />
+          <h2 class="text-3xl font-bold text-[rgb(var(--color-text-primary))]">Latest Notes</h2>
+        </div>
         <a
           href="/notes"
-          class="text-[rgb(var(--color-accent))] hover:text-[rgb(var(--color-accent-hover))] font-medium"
+          class="text-[rgb(var(--color-accent))] hover:text-[rgb(var(--color-accent-hover))] font-medium flex items-center gap-2 group"
         >
-          View all →
+          View all
+          <ArrowRight size={20} class="group-hover:translate-x-1 transition-transform" />
         </a>
       </div>
       <div class="grid gap-6 md:grid-cols-3">

@@ -1,9 +1,12 @@
 # byteco.dev
 
-A modern, dark-themed personal website built with Astro, TypeScript, and Tailwind CSS. Features a blog, notes, project showcase, and tag-based content organization.
+A modern, fully dark-themed personal website built with Astro, TypeScript, and Tailwind CSS. Features a glassmorphism design with a left sidebar navigation and floating status panel.
 
 ## 🌟 Features
 
+- **Modern glassmorphism UI** with blur effects and subtle borders
+- **Left pill sidebar** with icon-based navigation
+- **Floating status button** with drawer panel
 - **Dark-only theme** with violet accent color
 - **Blog & Notes** with MDX support for rich content
 - **Content Collections** for type-safe content management
@@ -100,15 +103,51 @@ Quick notes, code snippets, and TIL moments...
 
 ## 🎨 Customization
 
+### Editing Your Status
+
+The floating status panel can be customized by editing `src/data/status.ts`:
+
+```typescript
+export const statusData: StatusData = {
+  currentStatus: "Building cool things with web technologies 🚀",
+  emoji: "👨‍💻",
+  quickLinks: [
+    {
+      label: "Email",
+      href: "mailto:hello@byteco.dev",
+      icon: "✉️"
+    },
+    {
+      label: "GitHub",
+      href: "https://github.com/bytecodesky",
+      icon: "🐙"
+    },
+    {
+      label: "Twitter",
+      href: "https://twitter.com",
+      icon: "🐦"
+    }
+  ]
+};
+```
+
+- **currentStatus**: Update your current status message
+- **emoji**: Change the emoji displayed with your status
+- **quickLinks**: Add, remove, or modify quick link buttons
+
+### Navigation Links
+
+Update the sidebar navigation in `src/components/SidebarNav.astro` to add or remove navigation items.
+
 ### Theme Colors
 
 Edit `src/styles/global.css` to customize the color scheme:
 
 ```css
 :root {
-  --color-bg-primary: 15 23 42;      /* slate-900 */
-  --color-bg-secondary: 30 41 59;    /* slate-800 */
-  --color-text-primary: 248 250 252; /* slate-50 */
+  --color-bg-primary: 10 10 15;      /* Very dark background */
+  --color-glass-bg: 20 20 30;        /* Glass card background */
+  --color-text-primary: 248 250 252; /* Text color */
   --color-accent: 139 92 246;        /* violet-500 */
   --color-accent-hover: 124 58 237;  /* violet-600 */
 }
@@ -127,13 +166,11 @@ export default defineConfig({
 
 Update SEO defaults in `src/components/SEO.astro`.
 
-### Projects
-
-Edit the projects array in `src/pages/projects.astro` to showcase your work.
-
 ### Social Links
 
-Update social links in `src/components/Footer.astro`.
+Update social links in:
+- `src/components/Footer.astro` - Footer social links
+- `src/data/status.ts` - Status panel quick links
 
 ## 📁 Project Structure
 
@@ -146,16 +183,20 @@ Update social links in `src/components/Footer.astro`.
 │   ├── components/        # Reusable UI components
 │   │   ├── BlogPostCard.astro
 │   │   ├── Footer.astro
-│   │   ├── Header.astro
 │   │   ├── NoteCard.astro
 │   │   ├── RelatedPosts.astro
 │   │   ├── SEO.astro
+│   │   ├── SidebarNav.astro      # Left sidebar navigation
+│   │   ├── StatusButton.astro    # Floating status button
+│   │   ├── StatusPanel.astro     # Status drawer panel
 │   │   ├── TableOfContents.astro
 │   │   └── TagList.astro
 │   ├── content/           # Content collections
 │   │   ├── blog/          # Blog posts (.mdx)
 │   │   ├── notes/         # Notes (.mdx)
 │   │   └── config.ts      # Content schema definitions
+│   ├── data/
+│   │   └── status.ts      # Status panel configuration
 │   ├── layouts/
 │   │   └── BaseLayout.astro
 │   ├── lib/
@@ -172,15 +213,13 @@ Update social links in `src/components/Footer.astro`.
 │   │   │   └── index.astro
 │   │   ├── about.astro
 │   │   ├── index.astro
-│   │   ├── projects.astro
 │   │   └── rss.xml.ts
 │   ├── styles/
-│   │   └── global.css
+│   │   └── global.css     # Global styles with glassmorphism utilities
 │   └── utils/
 │       └── helpers.ts
 ├── astro.config.mjs
 ├── package.json
-├── tailwind.config.mjs
 └── tsconfig.json
 ```
 

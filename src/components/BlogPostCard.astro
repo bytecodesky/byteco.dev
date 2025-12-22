@@ -11,12 +11,12 @@ const { post } = Astro.props;
 const { title, description, date, tags } = post.data;
 ---
 
-<article class="border border-[rgb(var(--color-border))] rounded-lg p-6 hover:border-[rgb(var(--color-accent))] transition-colors">
+<article class="glass-card glass-card--strong p-8">
   <a href={`/blog/${post.slug}`} class="block group">
-    <h3 class="text-xl font-semibold mb-2 text-[rgb(var(--color-text-primary))] group-hover:text-[rgb(var(--color-accent))] transition-colors">
+    <h3 class="text-2xl font-bold mb-3 text-[rgb(var(--color-text-primary))] group-hover:text-[rgb(var(--color-accent))] transition-colors">
       {title}
     </h3>
-    <p class="text-[rgb(var(--color-text-secondary))] mb-3 line-clamp-2">
+    <p class="text-[rgb(var(--color-text-secondary))] mb-4 leading-relaxed line-clamp-2">
       {description}
     </p>
     <time class="text-sm text-[rgb(var(--color-text-tertiary))]" datetime={date.toISOString()}>
@@ -24,7 +24,7 @@ const { title, description, date, tags } = post.data;
     </time>
   </a>
   {tags.length > 0 && (
-    <div class="mt-4">
+    <div class="mt-4 pt-4 border-t border-[rgba(var(--color-glass-border),0.1)]">
       <TagList tags={tags} size="sm" />
     </div>
   )}

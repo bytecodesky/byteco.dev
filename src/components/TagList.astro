@@ -7,8 +7,8 @@ interface Props {
 const { tags, size = 'md' } = Astro.props;
 
 const sizeClasses = {
-  sm: 'text-xs px-2 py-1',
-  md: 'text-sm px-3 py-1',
+  sm: 'text-xs px-3 py-1',
+  md: 'text-sm px-4 py-2',
 };
 ---
 
@@ -16,7 +16,7 @@ const sizeClasses = {
   {tags.map((tag) => (
     <a
       href={`/tags/${tag}`}
-      class={`inline-block bg-[rgb(var(--color-bg-secondary))] text-[rgb(var(--color-text-secondary))] rounded-full hover:bg-[rgb(var(--color-accent))] hover:text-white transition-colors ${sizeClasses[size]}`}
+      class={`inline-block glass-card text-[rgb(var(--color-text-secondary))] rounded-full hover:bg-[rgba(var(--color-accent),0.2)] hover:text-[rgb(var(--color-accent))] hover:border-[rgba(var(--color-accent),0.5)] transition-all ${sizeClasses[size]}`}
     >
       #{tag}
     </a>

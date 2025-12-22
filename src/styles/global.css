@@ -2,15 +2,30 @@
 
 @layer base {
   :root {
-    --color-bg-primary: 15 23 42; /* slate-900 */
-    --color-bg-secondary: 30 41 59; /* slate-800 */
-    --color-bg-tertiary: 51 65 85; /* slate-700 */
+    /* Background colors - truly dark near-black */
+    --color-bg-primary: 5 5 5; /* Near-black #050505 */
+    --color-bg-secondary: 8 8 8; /* Slightly lighter near-black */
+    --color-bg-tertiary: 12 12 12; /* Card backgrounds */
+    
+    /* Glass effect backgrounds - subtle white overlays */
+    --color-glass-bg: 255 255 255; /* White base for alpha overlays */
+    --color-glass-border: 255 255 255; /* White for subtle borders */
+    
+    /* Text colors */
     --color-text-primary: 248 250 252; /* slate-50 */
     --color-text-secondary: 226 232 240; /* slate-200 */
     --color-text-tertiary: 148 163 184; /* slate-400 */
+    
+    /* Accent colors - vibrant for contrast */
     --color-accent: 139 92 246; /* violet-500 */
     --color-accent-hover: 124 58 237; /* violet-600 */
-    --color-border: 51 65 85; /* slate-700 */
+    --color-accent-light: 167 139 250; /* violet-400 */
+    
+    /* Border color */
+    --color-border: 255 255 255; /* White for subtle borders */
+    
+    /* Sidebar width */
+    --sidebar-width: 80px;
   }
 
   html {
@@ -87,7 +102,7 @@
   }
 
   .prose hr {
-    @apply my-8 border-[rgb(var(--color-border))];
+    @apply my-8 border-[rgba(var(--color-border),0.1)];
   }
 
   .prose table {
@@ -99,6 +114,69 @@
   }
 
   .prose td {
-    @apply border-t border-[rgb(var(--color-border))] p-2;
+    @apply border-t border-[rgba(var(--color-border),0.1)] p-2;
+  }
+}
+
+@layer utilities {
+  /* Glass morphism styles with subtle white overlays */
+  .glass-card {
+    background: rgba(var(--color-glass-bg), 0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(var(--color-glass-border), 0.08);
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.2);
+  }
+
+  .glass-card-hover {
+    background: rgba(var(--color-glass-bg), 0.06);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(var(--color-glass-border), 0.08);
+    border-radius: 1.5rem;
+    box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.2);
+    transition: all 0.3s ease;
+  }
+
+  .glass-card-hover:hover {
+    border-color: rgba(var(--color-accent), 0.5);
+    box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+  }
+
+  /* Stronger glassmorphism for post/note cards */
+  .glass-card--strong {
+    background: rgba(var(--color-glass-bg), 0.06);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgba(var(--color-glass-border), 0.10);
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+    transition: all 0.3s ease;
+  }
+
+  .glass-card--strong:hover {
+    background: rgba(var(--color-glass-bg), 0.08);
+    border-color: rgba(167, 139, 250, 0.35);
+    transform: translateY(-1px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.65);
+  }
+
+  .glass-card--strong:focus-within {
+    outline: 2px solid rgba(var(--color-accent), 0.5);
+    outline-offset: 2px;
+  }
+
+  .pill-button {
+    border-radius: 9999px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .sidebar-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    transition: all 0.3s ease;
   }
 }
