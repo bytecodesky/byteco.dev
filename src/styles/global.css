@@ -144,6 +144,29 @@
     box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
   }
 
+  /* Stronger glassmorphism for post/note cards */
+  .glass-card--strong {
+    background: rgba(var(--color-glass-bg), 0.06);
+    backdrop-filter: blur(18px) saturate(140%);
+    -webkit-backdrop-filter: blur(18px) saturate(140%);
+    border: 1px solid rgba(var(--color-glass-border), 0.10);
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+    transition: all 0.3s ease;
+  }
+
+  .glass-card--strong:hover {
+    background: rgba(var(--color-glass-bg), 0.08);
+    border-color: rgba(167, 139, 250, 0.35);
+    transform: translateY(-1px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.65);
+  }
+
+  .glass-card--strong:focus-within {
+    outline: 2px solid rgba(var(--color-accent), 0.5);
+    outline-offset: 2px;
+  }
+
   .pill-button {
     border-radius: 9999px;
     padding: 0.75rem 1.5rem;
