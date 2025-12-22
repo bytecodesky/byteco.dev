@@ -14,10 +14,13 @@ export function getReadingTime(content: string): string {
 }
 
 export function slugify(text: string): string {
-  return text
+  const slug = text
     .toLowerCase()
     .replace(/[^\w\s-]/g, '')
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
     .trim();
+  
+  // Fallback to 'untitled' if slug becomes empty
+  return slug || 'untitled';
 }

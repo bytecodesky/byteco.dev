@@ -13,6 +13,11 @@ export async function getStaticPaths() {
 
 const { tag } = Astro.params;
 
+// Validate tag parameter
+if (!tag || typeof tag !== 'string') {
+  return Astro.redirect('/tags');
+}
+
 const posts = await getPostsByTag(tag);
 const notes = await getNotesByTag(tag);
 const totalCount = posts.length + notes.length;
