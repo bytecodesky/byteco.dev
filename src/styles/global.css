@@ -23,9 +23,6 @@
     
     /* Border color */
     --color-border: 255 255 255; /* White for subtle borders */
-    
-    /* Sidebar width */
-    --sidebar-width: 80px;
   }
 
   html {
