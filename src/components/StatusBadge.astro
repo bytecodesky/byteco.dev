@@ -1,0 +1,49 @@
+---
+import { Flag } from 'lucide-astro';
+---
+
+<div
+  class="fixed bottom-8 right-8 z-50 status-badge px-6 py-4"
+  style="
+    background: rgba(34, 197, 94, 0.10);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(34, 197, 94, 0.25);
+    border-radius: 9999px;
+    box-shadow: 0 0 24px rgba(34, 197, 94, 0.25), 0 20px 25px -5px rgb(0 0 0 / 0.3), 0 8px 10px -6px rgb(0 0 0 / 0.2);
+  "
+>
+  <div class="flex items-center gap-3">
+    <span class="led-dot"></span>
+    <span class="font-semibold text-[rgb(var(--color-text-primary))]">Now playing CTFs</span>
+    <Flag size={20} class="text-[rgb(var(--color-text-primary))]" />
+  </div>
+</div>
+
+<style>
+  .led-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgb(34, 197, 94);
+    animation: pulse-led 2s ease-in-out infinite;
+    box-shadow: 0 0 8px rgba(34, 197, 94, 0.8);
+  }
+
+  @keyframes pulse-led {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(0.95);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .status-badge {
+      bottom: calc(var(--content-safe-bottom) + 2rem);
+    }
+  }
+</style>
