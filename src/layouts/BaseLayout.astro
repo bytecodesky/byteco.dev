@@ -11,7 +11,6 @@ interface Props {
   image?: string;
   article?: boolean;
   publishedTime?: Date;
-  tags?: string[];
 }
 
 const {
@@ -20,7 +19,6 @@ const {
   image = '/og-image.png',
   article = false,
   publishedTime,
-  tags,
 } = Astro.props;
 ---
 
@@ -37,7 +35,6 @@ const {
       image={image}
       article={article}
       publishedTime={publishedTime}
-      tags={tags}
     />
   </head>
   <body class="min-h-screen">
