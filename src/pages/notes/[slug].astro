@@ -2,7 +2,6 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
-import TagList from '../../components/TagList.astro';
 import { formatDate } from '../../utils/helpers';
 import { ArrowLeft, BookOpen } from 'lucide-astro';
 
@@ -20,7 +19,7 @@ interface Props {
 
 const { note } = Astro.props;
 const { Content, headings } = await note.render();
-const { title, date, tags } = note.data;
+const { title, date } = note.data;
 ---
 
 <BaseLayout
@@ -45,11 +44,6 @@ const { title, date, tags } = note.data;
       <time class="text-sm text-[rgb(var(--color-text-tertiary))]" datetime={date.toISOString()}>
         {formatDate(date)}
       </time>
-      {tags.length > 0 && (
-        <div class="mt-6">
-          <TagList tags={tags} />
-        </div>
-      )}
     </header>
 
     <div class="grid md:grid-cols-[1fr_280px] gap-12">

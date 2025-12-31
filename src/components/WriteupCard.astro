@@ -1,0 +1,64 @@
+---
+import type { Writeup } from '../lib/content';
+import { formatDate } from '../utils/helpers';
+
+interface Props {
+  writeup: Writeup;
+  showCTF?: boolean;
+}
+
+const { writeup, showCTF = false } = Astro.props;
+const { title, summary, date, category, difficulty, points } = writeup.data;
+
+const difficultyColors = {
+  easy: 'text-green-400',
+  medium: 'text-yellow-400',
+  hard: 'text-red-400',
+};
+
+const categoryIcons = {
+  web: '🌐',
+  pwn: '💥',
+  crypto: '🔐',
+  rev: '🔄',
+  forensics: '🔍',
+  misc: '🧩',
+};
+---
+
+<article class="glass-card--strong p-6">
+  <a href={`/ctfs/${writeup.data.ctfSlug}/${writeup.slug.split('/').pop()}`} class="block group">
+    <div class="flex items-start gap-3 mb-3">
+      <span class="text-2xl">{categoryIcons[category]}</span>
+      <div class="flex-1 min-w-0">
+        <h3 class="text-xl font-bold text-[rgb(var(--color-text-primary))] group-hover:text-[rgb(var(--color-text-secondary))] transition-colors line-clamp-1">
+          {title}
+        </h3>
+        {showCTF && (
+          <p class="text-sm text-[rgb(var(--color-text-tertiary))] mt-1">
+            {writeup.data.ctf}
+          </p>
+        )}
+      </div>
+    </div>
+    
+    <p class="text-sm text-[rgb(var(--color-text-secondary))] mb-4 leading-relaxed line-clamp-2">
+      {summary}
+    </p>
+    
+    <div class="flex items-center gap-4 text-xs text-[rgb(var(--color-text-tertiary))]">
+      <span class="capitalize px-2 py-1 rounded glass-card">
+        {category}
+      </span>
+      <span class={`capitalize font-medium ${difficultyColors[difficulty]}`}>
+        {difficulty}
+      </span>
+      {points && (
+        <span>{points} pts</span>
+      )}
+      <span class="ml-auto">
+        {formatDate(date)}
+      </span>
+    </div>
+  </a>
+</article>

@@ -1,0 +1,122 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import WriteupCard from '../../../components/WriteupCard.astro';
+import { getWriteupsByCTF, groupWriteupsByCategory } from '../../../lib/content';
+import { formatDate } from '../../../utils/helpers';
+import { ArrowLeft, Flag } from 'lucide-astro';
+
+export async function getStaticPaths() {
+  const ctfs = await getCollection('ctfs');
+  return ctfs.map((ctf) => ({
+    params: { ctf: ctf.data.ctfSlug },
+    props: { ctf },
+  }));
+}
+
+interface Props {
+  ctf: CollectionEntry<'ctfs'>;
+}
+
+const { ctf } = Astro.props;
+const { Content } = await ctf.render();
+const { title, description, date, platform } = ctf.data;
+
+const writeups = await getWriteupsByCTF(ctf.data.ctfSlug);
+const groupedWriteups = groupWriteupsByCategory(writeups);
+
+// Sort categories in a preferred order
+const categoryOrder = ['web', 'pwn', 'crypto', 'rev', 'forensics', 'misc'];
+const sortedCategories = Array.from(groupedWriteups.keys()).sort(
+  (a, b) => categoryOrder.indexOf(a) - categoryOrder.indexOf(b)
+);
+---
+
+<BaseLayout
+  title={`${title} - CTF Writeups - byteco.dev`}
+  description={description}
+>
+  <article class="container mx-auto px-8 py-16 max-w-6xl">
+    <header class="mb-12">
+      <a
+        href="/ctfs"
+        class="inline-flex items-center gap-2 text-[rgb(var(--color-text-tertiary))] hover:text-[rgb(var(--color-text-primary))] transition-colors mb-8"
+      >
+        <ArrowLeft size={20} />
+        Back to CTFs
+      </a>
+      
+      <div class="flex items-center gap-4 mb-6">
+        <Flag size={40} class="text-[rgb(var(--color-text-primary))]" />
+        <h1 class="text-5xl font-bold text-[rgb(var(--color-text-primary))] leading-tight">
+          {title}
+        </h1>
+      </div>
+      
+      <div class="flex items-center gap-4 text-sm text-[rgb(var(--color-text-tertiary))] mb-6">
+        <time datetime={date.toISOString()}>
+          {formatDate(date)}
+        </time>
+        {platform && (
+          <>
+            <span>•</span>
+            <span>{platform}</span>
+          </>
+        )}
+        <span>•</span>
+        <span>{writeups.length} {writeups.length === 1 ? 'writeup' : 'writeups'}</span>
+      </div>
+      
+      <p class="text-xl text-[rgb(var(--color-text-secondary))] leading-relaxed">
+        {description}
+      </p>
+    </header>
+
+    {/* CTF Overview Content */}
+    <div class="glass-card p-8 md:p-12 mb-12">
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+
+    {/* Writeups by Category */}
+    {writeups.length > 0 ? (
+      <div class="space-y-12">
+        <h2 class="text-3xl font-bold text-[rgb(var(--color-text-primary))]">Challenge Writeups</h2>
+        
+        {sortedCategories.map((category) => {
+          const categoryWriteups = groupedWriteups.get(category)!;
+          return (
+            <section>
+              <h3 class="text-2xl font-semibold capitalize mb-6 text-[rgb(var(--color-text-primary))] flex items-center gap-3">
+                <span class="text-3xl">
+                  {category === 'web' && '🌐'}
+                  {category === 'pwn' && '💥'}
+                  {category === 'crypto' && '🔐'}
+                  {category === 'rev' && '🔄'}
+                  {category === 'forensics' && '🔍'}
+                  {category === 'misc' && '🧩'}
+                </span>
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+                <span class="text-sm font-normal text-[rgb(var(--color-text-tertiary))]">
+                  ({categoryWriteups.length})
+                </span>
+              </h3>
+              <div class="grid gap-4 md:grid-cols-2">
+                {categoryWriteups.map((writeup) => (
+                  <WriteupCard writeup={writeup} />
+                ))}
+              </div>
+            </section>
+          );
+        })}
+      </div>
+    ) : (
+      <div class="glass-card p-12 text-center">
+        <p class="text-lg text-[rgb(var(--color-text-tertiary))]">
+          No writeups available for this CTF yet.
+        </p>
+      </div>
+    )}
+  </article>
+</BaseLayout>
