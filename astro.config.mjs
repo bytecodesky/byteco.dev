@@ -10,5 +10,12 @@ export default defineConfig({
   integrations: [mdx(), sitemap()],
   vite: {
     plugins: [tailwindcss()]
-  }
+  },
+  markdown: {
+    syntaxHighlight: 'shiki',
+    shikiConfig: {
+      theme: 'tokyo-night',
+      wrap: false,
+    },
+  },
 });

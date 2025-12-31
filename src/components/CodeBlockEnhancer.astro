@@ -1,0 +1,136 @@
+---
+// Component to add copy buttons to code blocks client-side
+---
+
+<script>
+  function initCodeBlocks() {
+    // Find all pre elements with code
+    const codeBlocks = document.querySelectorAll('.prose pre');
+    
+    codeBlocks.forEach((pre, index) => {
+      // Skip if already has a copy button
+      if (pre.querySelector('.copy-button-wrapper')) return;
+      
+      // Get the language from code element's class
+      const codeEl = pre.querySelector('code');
+      const classList = codeEl?.className || '';
+      const langMatch = classList.match(/language-([a-zA-Z0-9-_]+)/);
+      const lang = langMatch ? langMatch[1] : 'text';
+      
+      // Create wrapper for copy button and language label
+      const buttonWrapper = document.createElement('div');
+      buttonWrapper.className = 'copy-button-wrapper';
+      buttonWrapper.innerHTML = `
+        <span class="code-language-label">${lang}</span>
+        <button class="code-copy-button" aria-label="Copy code to clipboard">
+          <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <svg class="check-icon hidden" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          <span class="copy-text">Copy</span>
+          <span class="copied-text hidden">Copied!</span>
+        </button>
+      `;
+      
+      // Insert at the beginning of pre
+      pre.insertBefore(buttonWrapper, pre.firstChild);
+      
+      // Add click handler
+      const button = buttonWrapper.querySelector('.code-copy-button');
+      button?.addEventListener('click', async () => {
+        const code = codeEl?.textContent || '';
+        
+        try {
+          await navigator.clipboard.writeText(code);
+          
+          // Show feedback
+          const copyIcon = button.querySelector('.copy-icon');
+          const checkIcon = button.querySelector('.check-icon');
+          const copyText = button.querySelector('.copy-text');
+          const copiedText = button.querySelector('.copied-text');
+          
+          copyIcon?.classList.add('hidden');
+          checkIcon?.classList.remove('hidden');
+          copyText?.classList.add('hidden');
+          copiedText?.classList.remove('hidden');
+          
+          // Reset after 2 seconds
+          setTimeout(() => {
+            copyIcon?.classList.remove('hidden');
+            checkIcon?.classList.add('hidden');
+            copyText?.classList.remove('hidden');
+            copiedText?.classList.add('hidden');
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+        }
+      });
+    });
+  }
+  
+  // Run on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCodeBlocks);
+  } else {
+    initCodeBlocks();
+  }
+  
+  // Re-run on navigation (for view transitions)
+  document.addEventListener('astro:page-load', initCodeBlocks);
+</script>
+
+<style is:global>
+  .copy-button-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.625rem 0.75rem;
+    margin: -1rem -1rem 0.75rem -1rem;
+    border-bottom: 1px solid rgba(var(--color-glass-border), 0.08);
+    background: rgba(var(--color-glass-bg), 0.02);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .code-language-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: rgb(var(--color-text-tertiary));
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  }
+
+  .code-copy-button {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: rgb(var(--color-text-secondary));
+    background: rgba(var(--color-glass-bg), 0.05);
+    border: 1px solid rgba(var(--color-glass-border), 0.1);
+    border-radius: 0.375rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .code-copy-button:hover {
+    color: rgb(var(--color-text-primary));
+    background: rgba(var(--color-glass-bg), 0.08);
+    border-color: rgba(var(--color-glass-border), 0.15);
+  }
+
+  .code-copy-button:active {
+    transform: scale(0.98);
+  }
+
+  .hidden {
+    display: none;
+  }
+</style>
