@@ -14,7 +14,7 @@
       // Get the language from code element's class
       const codeEl = pre.querySelector('code');
       const classList = codeEl?.className || '';
-      const langMatch = classList.match(/language-(\w+)/);
+      const langMatch = classList.match(/language-([a-zA-Z0-9-_]+)/);
       const lang = langMatch ? langMatch[1] : 'text';
       
       // Create wrapper for copy button and language label
