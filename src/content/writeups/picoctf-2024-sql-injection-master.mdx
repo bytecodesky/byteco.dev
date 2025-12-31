@@ -1,0 +1,93 @@
+---
+title: "SQL Injection Master"
+date: 2024-03-15
+ctf: "picoCTF 2024"
+ctfSlug: "picoctf-2024"
+category: "web"
+difficulty: "easy"
+points: 100
+draft: false
+summary: "A beginner-friendly SQL injection challenge that teaches the basics of exploiting improperly sanitized database queries."
+---
+
+## Challenge Description
+
+The challenge presents a simple login form that's vulnerable to SQL injection. The goal is to bypass authentication and retrieve the flag from the database.
+
+**Points**: 100  
+**Category**: Web Exploitation  
+**Difficulty**: Easy
+
+## Reconnaissance
+
+Upon accessing the challenge, we're presented with a login form:
+
+```html
+<form action="/login" method="POST">
+  <input type="text" name="username" placeholder="Username">
+  <input type="password" name="password" placeholder="Password">
+  <button type="submit">Login</button>
+</form>
+```
+
+Testing with common credentials like `admin:admin` returns an "Invalid credentials" message.
+
+## Vulnerability Analysis
+
+The application likely uses a SQL query similar to:
+
+```sql
+SELECT * FROM users WHERE username='$username' AND password='$password'
+```
+
+If the input isn't properly sanitized, we can inject SQL code to manipulate the query logic.
+
+## Exploitation
+
+### Step 1: Test for SQL Injection
+
+First, I tested if the application is vulnerable by entering a single quote (`'`) in the username field. This resulted in an error, confirming the vulnerability.
+
+### Step 2: Bypass Authentication
+
+To bypass authentication, I used the classic SQL injection payload:
+
+**Username**: `admin' OR '1'='1' --`  
+**Password**: `anything`
+
+This transforms the query to:
+
+```sql
+SELECT * FROM users WHERE username='admin' OR '1'='1' --' AND password='anything'
+```
+
+The `--` comments out the rest of the query, and `'1'='1'` is always true, effectively bypassing the password check.
+
+### Step 3: Retrieve the Flag
+
+After successful authentication, the application displays the flag:
+
+```
+picoCTF{sql_1nj3ct10n_m4st3r_5a8d2f1b}
+```
+
+## Key Takeaways
+
+1. **Always sanitize user input**: Use parameterized queries or prepared statements
+2. **Input validation**: Reject or escape special characters
+3. **Least privilege**: Database users should have minimal necessary permissions
+4. **Error handling**: Don't expose detailed error messages to users
+
+## Prevention
+
+Secure implementation using prepared statements (Python example):
+
+```python
+cursor.execute("SELECT * FROM users WHERE username=? AND password=?", (username, password))
+```
+
+## Flag
+
+```
+picoCTF{sql_1nj3ct10n_m4st3r_5a8d2f1b}
+```

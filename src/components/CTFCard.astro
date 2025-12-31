@@ -1,0 +1,32 @@
+---
+import type { CTF } from '../lib/content';
+import { formatDate } from '../utils/helpers';
+
+interface Props {
+  ctf: CTF;
+}
+
+const { ctf } = Astro.props;
+const { title, description, date, platform } = ctf.data;
+---
+
+<article class="glass-card--strong p-8">
+  <a href={`/ctfs/${ctf.data.ctfSlug}`} class="block group">
+    <div class="flex items-start justify-between mb-3">
+      <h3 class="text-2xl font-bold text-[rgb(var(--color-text-primary))] group-hover:text-[rgb(var(--color-text-secondary))] transition-colors">
+        {title}
+      </h3>
+      {platform && (
+        <span class="text-xs px-3 py-1 rounded-full glass-card text-[rgb(var(--color-text-tertiary))]">
+          {platform}
+        </span>
+      )}
+    </div>
+    <p class="text-[rgb(var(--color-text-secondary))] mb-4 leading-relaxed line-clamp-2">
+      {description}
+    </p>
+    <time class="text-sm text-[rgb(var(--color-text-tertiary))]" datetime={date.toISOString()}>
+      {formatDate(date)}
+    </time>
+  </a>
+</article>

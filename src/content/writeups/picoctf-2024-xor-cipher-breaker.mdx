@@ -1,0 +1,155 @@
+---
+title: "XOR Cipher Breaker"
+date: 2024-03-18
+ctf: "picoCTF 2024"
+ctfSlug: "picoctf-2024"
+category: "crypto"
+difficulty: "medium"
+points: 200
+draft: false
+summary: "A cryptography challenge involving breaking a multi-byte XOR cipher using frequency analysis and known plaintext attacks."
+---
+
+## Challenge Description
+
+We're given an encrypted file that was encrypted using a multi-byte XOR cipher. The goal is to find the key and decrypt the message to reveal the flag.
+
+**Points**: 200  
+**Category**: Cryptography  
+**Difficulty**: Medium
+
+## Initial Analysis
+
+The challenge provides:
+- `encrypted.txt`: A file containing hex-encoded encrypted data
+- Hint: "The message is in English"
+
+### File Contents
+
+```
+1c0a1f4a5c1b4a5e0f1a4a...
+```
+
+## Understanding XOR Encryption
+
+XOR cipher works by XORing each byte of plaintext with a corresponding byte from the key (repeating the key as needed):
+
+```
+Ciphertext = Plaintext ⊕ Key
+```
+
+The key property: `Plaintext = Ciphertext ⊕ Key`
+
+## Solution Approach
+
+### Step 1: Determine Key Length
+
+Since we know the plaintext is English, we can use the Index of Coincidence (IoC) method or Hamming distance to guess the key length.
+
+I wrote a Python script to test different key lengths:
+
+```python
+def hamming_distance(s1, s2):
+    return sum(bin(b1 ^ b2).count('1') for b1, b2 in zip(s1, s2))
+
+def find_key_length(data, max_keylen=40):
+    distances = []
+    for keylen in range(2, max_keylen):
+        chunks = [data[i:i+keylen] for i in range(0, len(data), keylen)][:4]
+        if len(chunks) < 2:
+            continue
+        avg_dist = sum(hamming_distance(chunks[i], chunks[i+1]) 
+                      for i in range(len(chunks)-1)) / (len(chunks)-1)
+        normalized = avg_dist / keylen
+        distances.append((keylen, normalized))
+    return sorted(distances, key=lambda x: x[1])
+```
+
+This suggested a key length of **8 bytes**.
+
+### Step 2: Frequency Analysis
+
+For each position in the key, I collected all bytes that were encrypted with that key byte and performed frequency analysis:
+
+```python
+def break_single_byte_xor(ciphertext):
+    best_score = 0
+    best_key = 0
+    
+    for key in range(256):
+        plaintext = bytes([b ^ key for b in ciphertext])
+        score = sum(plaintext.count(c.encode()[0]) 
+                   for c in 'etaoinshrdlu ETAOINSHRDLU')
+        
+        if score > best_score:
+            best_score = score
+            best_key = key
+    
+    return best_key
+```
+
+### Step 3: Recover the Full Key
+
+```python
+import binascii
+
+data = binascii.unhexlify(open('encrypted.txt').read().strip())
+keylen = 8
+
+key = []
+for i in range(keylen):
+    # Extract every nth byte
+    block = data[i::keylen]
+    key_byte = break_single_byte_xor(block)
+    key.append(key_byte)
+
+key = bytes(key)
+print(f"Key found: {key}")
+# Output: b'PICO2024'
+```
+
+### Step 4: Decrypt the Message
+
+```python
+def xor_decrypt(ciphertext, key):
+    return bytes([c ^ key[i % len(key)] for i, c in enumerate(ciphertext)])
+
+plaintext = xor_decrypt(data, key)
+print(plaintext.decode())
+```
+
+### Decrypted Message
+
+```
+Congratulations! You've successfully broken the XOR cipher.
+The flag is: picoCTF{x0r_br34k3r_3xp3rt_9c4e1a2d}
+
+XOR encryption is weak when:
+1. The key is reused
+2. The plaintext has patterns
+3. The key is too short
+
+Always use proper encryption like AES for real security!
+```
+
+## Key Concepts
+
+1. **Frequency Analysis**: English text has predictable letter frequencies
+2. **Hamming Distance**: Useful for finding key lengths in repeating-key XOR
+3. **Known Plaintext**: Assumptions about the plaintext structure help break the cipher
+
+## Tools Used
+
+- Python 3 with built-in libraries
+- Custom frequency analysis script
+
+## Flag
+
+```
+picoCTF{x0r_br34k3r_3xp3rt_9c4e1a2d}
+```
+
+## References
+
+- [XOR Cipher on Wikipedia](https://en.wikipedia.org/wiki/XOR_cipher)
+- [Frequency Analysis](https://en.wikipedia.org/wiki/Frequency_analysis)
