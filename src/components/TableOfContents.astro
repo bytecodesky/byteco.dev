@@ -117,8 +117,8 @@ const filteredHeadings = headings.filter((h) => h.depth <= 3);
         threshold: 0
       };
 
-      const headingElements = new Map<string, Element>();
-      const tocLinks = new Map<string, Element>();
+      const headingElements = new Map();
+      const tocLinks = new Map();
 
       // Collect all headings and TOC links
       document.querySelectorAll('.prose h2[id], .prose h3[id]').forEach((heading) => {
@@ -135,9 +135,9 @@ const filteredHeadings = headings.filter((h) => h.depth <= 3);
         }
       });
 
-      let activeSlug: string | null = null;
+      let activeSlug = null;
 
-      const setActiveLink = (slug: string) => {
+      const setActiveLink = (slug) => {
         if (activeSlug === slug) return;
         
         // Remove active state from previous link
