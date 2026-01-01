@@ -40,9 +40,11 @@
       `;
       
       // Wrap the pre element
-      pre.parentNode.insertBefore(wrapper, pre);
-      wrapper.appendChild(header);
-      wrapper.appendChild(pre);
+      if (pre.parentNode) {
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(header);
+        wrapper.appendChild(pre);
+      }
       
       // Add click handler
       const button = header.querySelector('.code-copy-button');
