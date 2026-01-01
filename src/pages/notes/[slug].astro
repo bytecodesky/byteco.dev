@@ -53,9 +53,9 @@ const { title, date } = note.data;
         </div>
       </div>
       {headings.length > 0 && (
-        <aside class="hidden lg:block">
+        <aside class="toc-desktop-only">
           <div class="sticky top-8">
-            <TableOfContents headings={headings} />
+            <TableOfContents headings={headings} variant="desktop" />
           </div>
         </aside>
       )}
@@ -63,8 +63,8 @@ const { title, date } = note.data;
 
     {/* Mobile TOC */}
     {headings.length > 0 && (
-      <div class="lg:hidden">
-        <TableOfContents headings={headings} />
+      <div class="toc-mobile-only">
+        <TableOfContents headings={headings} variant="mobile" />
       </div>
     )}
   </article>
