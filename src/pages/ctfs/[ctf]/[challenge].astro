@@ -1,0 +1,119 @@
+---
+import { type CollectionEntry, getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import TableOfContents from '../../../components/TableOfContents.astro';
+import { formatDate } from '../../../utils/helpers';
+import { ArrowLeft, Flag } from 'lucide-astro';
+
+export async function getStaticPaths() {
+  const writeups = await getCollection('writeups');
+  return writeups.map((writeup) => ({
+    params: { 
+      ctf: writeup.data.ctfSlug,
+      challenge: writeup.slug.split('/').pop(),
+    },
+    props: { writeup },
+  }));
+}
+
+interface Props {
+  writeup: CollectionEntry<'writeups'>;
+}
+
+const { writeup } = Astro.props;
+const { Content, headings } = await writeup.render();
+const { title, summary, date, ctf, category, difficulty, points } = writeup.data;
+
+const difficultyColors = {
+  easy: 'text-green-400',
+  medium: 'text-yellow-400',
+  hard: 'text-red-400',
+};
+
+const categoryIcons = {
+  web: '🌐',
+  pwn: '💥',
+  crypto: '🔐',
+  rev: '🔄',
+  forensics: '🔍',
+  misc: '🧩',
+};
+---
+
+<BaseLayout
+  title={`${title} - ${ctf} - byteco.dev`}
+  description={summary}
+  article={true}
+  publishedTime={date}
+>
+  <article class="container mx-auto px-8 py-16 max-w-5xl">
+    <header class="mb-12">
+      <a
+        href={`/ctfs/${writeup.data.ctfSlug}`}
+        class="inline-flex items-center gap-2 text-[rgb(var(--color-text-tertiary))] hover:text-[rgb(var(--color-text-primary))] transition-colors mb-8"
+      >
+        <ArrowLeft size={20} />
+        Back to {ctf}
+      </a>
+      
+      <div class="flex items-start gap-4 mb-6">
+        <span class="text-5xl">{categoryIcons[category]}</span>
+        <div class="flex-1">
+          <h1 class="text-5xl font-bold mb-4 text-[rgb(var(--color-text-primary))] leading-tight">
+            {title}
+          </h1>
+          <div class="flex items-center gap-2 mb-4">
+            <Flag size={16} class="text-[rgb(var(--color-text-tertiary))]" />
+            <a 
+              href={`/ctfs/${writeup.data.ctfSlug}`}
+              class="text-lg text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors"
+            >
+              {ctf}
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-xl text-[rgb(var(--color-text-secondary))] mb-6 leading-relaxed">
+        {summary}
+      </p>
+      
+      <div class="flex flex-wrap items-center gap-4 text-sm">
+        <time class="text-[rgb(var(--color-text-tertiary))]" datetime={date.toISOString()}>
+          {formatDate(date)}
+        </time>
+        <span class="text-[rgb(var(--color-text-tertiary))]">•</span>
+        <span class="capitalize px-3 py-1 rounded-full glass-card text-[rgb(var(--color-text-secondary))]">
+          {category}
+        </span>
+        <span class={`capitalize font-semibold ${difficultyColors[difficulty]}`}>
+          {difficulty}
+        </span>
+        {points && (
+          <>
+            <span class="text-[rgb(var(--color-text-tertiary))]">•</span>
+            <span class="text-[rgb(var(--color-text-tertiary))]">{points} points</span>
+          </>
+        )}
+      </div>
+    </header>
+
+    <div class="grid lg:grid-cols-[minmax(0,1fr)_280px] gap-12">
+      <div class="glass-card p-8 md:p-12 min-w-0">
+        <div class="prose">
+          <Content />
+        </div>
+      </div>
+      <aside class="hidden lg:block">
+        <div class="sticky top-8">
+          <TableOfContents headings={headings} />
+        </div>
+      </aside>
+    </div>
+
+    {/* Mobile TOC */}
+    <div class="lg:hidden">
+      <TableOfContents headings={headings} />
+    </div>
+  </article>
+</BaseLayout>

@@ -1,14 +1,13 @@
 ---
 import type { Note } from '../lib/content';
 import { formatDate } from '../utils/helpers';
-import TagList from './TagList.astro';
 
 interface Props {
   note: Note;
 }
 
 const { note } = Astro.props;
-const { title, date, tags } = note.data;
+const { title, date } = note.data;
 ---
 
 <article class="glass-card--strong p-8">
@@ -20,9 +19,4 @@ const { title, date, tags } = note.data;
       {formatDate(date)}
     </time>
   </a>
-  {tags.length > 0 && (
-    <div class="mt-4 pt-4 border-t border-[rgba(var(--color-glass-border),0.1)]">
-      <TagList tags={tags} size="sm" />
-    </div>
-  )}
 </article>

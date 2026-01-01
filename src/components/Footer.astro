@@ -1,12 +1,12 @@
 ---
-import { Github, Twitter, Linkedin } from 'lucide-astro';
+import { Github, Twitter, Mail } from 'lucide-astro';
 
 const currentYear = new Date().getFullYear();
 
 const socialLinks = [
   { name: 'GitHub', href: 'https://github.com/bytecodesky', icon: Github },
-  { name: 'Twitter', href: 'https://twitter.com', icon: Twitter },
-  { name: 'LinkedIn', href: 'https://linkedin.com', icon: Linkedin },
+  { name: 'Twitter', href: 'https://twitter.com/bytecodev', icon: Twitter },
+  { name: 'Mail', href: 'mailto:bytecodesky@bugcrowdninja.com', icon: Mail },
 ];
 ---
 
@@ -15,7 +15,7 @@ const socialLinks = [
     <div class="flex flex-col md:flex-row justify-between items-center gap-6">
       <div class="text-center md:text-left">
         <p class="text-sm text-[rgb(var(--color-text-tertiary))]">
-          &copy; {currentYear} byteco.dev. Built with Astro & TypeScript.
+	&copy; {currentYear} byteco.dev.
         </p>
       </div>
       <div class="flex gap-6">

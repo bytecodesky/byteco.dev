@@ -2,7 +2,6 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import TableOfContents from '../../components/TableOfContents.astro';
-import TagList from '../../components/TagList.astro';
 import { formatDate } from '../../utils/helpers';
 import { ArrowLeft, BookOpen } from 'lucide-astro';
 
@@ -20,7 +19,7 @@ interface Props {
 
 const { note } = Astro.props;
 const { Content, headings } = await note.render();
-const { title, date, tags } = note.data;
+const { title, date } = note.data;
 ---
 
 <BaseLayout
@@ -45,26 +44,28 @@ const { title, date, tags } = note.data;
       <time class="text-sm text-[rgb(var(--color-text-tertiary))]" datetime={date.toISOString()}>
         {formatDate(date)}
       </time>
-      {tags.length > 0 && (
-        <div class="mt-6">
-          <TagList tags={tags} />
-        </div>
-      )}
     </header>
 
-    <div class="grid md:grid-cols-[1fr_280px] gap-12">
-      <div class="glass-card p-8 md:p-12">
+    <div class="grid lg:grid-cols-[minmax(0,1fr)_280px] gap-12">
+      <div class="glass-card p-8 md:p-12 min-w-0">
         <div class="prose">
           <Content />
         </div>
       </div>
       {headings.length > 0 && (
-        <aside class="hidden md:block">
+        <aside class="hidden lg:block">
           <div class="sticky top-8">
             <TableOfContents headings={headings} />
           </div>
         </aside>
       )}
     </div>
+
+    {/* Mobile TOC */}
+    {headings.length > 0 && (
+      <div class="lg:hidden">
+        <TableOfContents headings={headings} />
+      </div>
+    )}
   </article>
 </BaseLayout>

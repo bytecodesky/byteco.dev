@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { User, Github, Twitter, Linkedin } from 'lucide-astro';
+import { User, Github, Twitter, Mail } from 'lucide-astro';
 ---
 
 <BaseLayout
@@ -17,12 +17,13 @@ import { User, Github, Twitter, Linkedin } from 'lucide-astro';
 
     <div class="space-y-8">
       <section class="glass-card p-8 md:p-12">
-        <h2 class="text-3xl font-bold mb-6 text-[rgb(var(--color-text-primary))]">Hi, I'm byteco</h2>
+        <h2 class="text-3xl font-bold mb-6 text-[rgb(var(--color-text-primary))]">Hi, I'm bytecodev</h2>
         <div class="prose">
           <p>
-            I'm a software developer passionate about web technologies, clean code, and building
-            useful tools. This site is where I share my thoughts on programming, document learnings,
-            and showcase my work.
+            I'm a Software Engineer specializing in <strong>Offensive Security</strong>. 
+            While I have a background in building systems, my true passion lies in breaking them. 
+            I spend my time hunting bugs, solving complex <strong>CTF challenges</strong>, and researching low-level vulnerabilit            ies.
+            This site is my digital garden where I document my journey into <strong>pwn</strong>, <strong>reversing</strong>, and 	     the art of exploitation.
           </p>
         </div>
       </section>
@@ -30,38 +31,31 @@ import { User, Github, Twitter, Linkedin } from 'lucide-astro';
       <section class="glass-card p-8 md:p-12">
         <h2 class="text-3xl font-bold mb-6 text-[rgb(var(--color-text-primary))]">What I Work With</h2>
         <div class="prose">
-          <p>
-            My primary focus is on modern web development using TypeScript, React, and Node.js.
-            I enjoy exploring new frameworks and technologies, particularly those that improve
-            developer experience and user experience.
-          </p>
-          <p>
-            Current interests include:
-          </p>
-          <ul>
-            <li>Full-stack TypeScript development</li>
-            <li>Static site generation with Astro</li>
-            <li>Modern CSS and design systems</li>
-            <li>Developer tooling and automation</li>
+          <p class="text-[rgb(var(--color-text-muted))] mb-4 leading-relaxed">
+            My work sits at the intersection of development and security. I use my engineering skills to understand architect                ure, which allows me to perform deeper security assessments.
+	  </p>
+
+	  <p class="text-[rgb(var(--color-text-muted))] mb-4">
+            Current interests and focus areas include:
+	  </p>
+
+	  <ul class="list-disc list-inside space-y-2 text-[rgb(var(--color-text-muted))] ml-2">
+          <li>
+          <strong>Binary Exploitation (Pwn)</strong> & Reverse Engineering
+          </li>
+          <li>
+            Vulnerability Research & <strong>Bug Bounties</strong>
+          </li>
+          <li>
+            Competitive CTF (Capture The Flag)
+          </li>
+          <li>
+            Secure Code Review & Pentesting
+           </li>
           </ul>
         </div>
       </section>
 
-      <section class="glass-card p-8 md:p-12">
-        <h2 class="text-3xl font-bold mb-6 text-[rgb(var(--color-text-primary))]">About This Site</h2>
-        <div class="prose">
-          <p>
-            This site is built with <a href="https://astro.build" target="_blank" rel="noopener noreferrer">Astro</a>,
-            styled with <a href="https://tailwindcss.com" target="_blank" rel="noopener noreferrer">Tailwind CSS</a>,
-            and deployed on <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">Vercel</a>.
-            Content is authored in MDX and managed through Astro's Content Collections.
-          </p>
-          <p>
-            The source code is available on
-            <a href="https://github.com/bytecodesky/byteco.dev" target="_blank" rel="noopener noreferrer">GitHub</a>.
-          </p>
-        </div>
-      </section>
 
       <section class="glass-card p-8 md:p-12">
         <h2 class="text-3xl font-bold mb-6 text-[rgb(var(--color-text-primary))]">Get in Touch</h2>
@@ -81,7 +75,7 @@ import { User, Github, Twitter, Linkedin } from 'lucide-astro';
               GitHub
             </a>
             <a 
-              href="https://twitter.com" 
+		      href="https://twitter.com/bytecodev" 
               target="_blank" 
               rel="noopener noreferrer"
               class="pill-button glass-card hover:border-[rgba(var(--color-glass-border),0.20)] no-underline inline-flex items-center gap-2"
@@ -90,13 +84,13 @@ import { User, Github, Twitter, Linkedin } from 'lucide-astro';
               Twitter
             </a>
             <a 
-              href="https://linkedin.com" 
+              href="mailto:bytecodesky@bugcrowdninja.com" 
               target="_blank" 
               rel="noopener noreferrer"
               class="pill-button glass-card hover:border-[rgba(var(--color-glass-border),0.20)] no-underline inline-flex items-center gap-2"
             >
-              <Linkedin size={20} />
-              LinkedIn
+              <Mail size={20} />
+              Mail
             </a>
           </div>
         </div>

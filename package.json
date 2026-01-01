@@ -17,6 +17,8 @@
     "gray-matter": "^4.0.3",
     "lucide-astro": "^0.556.0",
     "reading-time": "^1.5.0",
-    "tailwindcss": "^4.1.18"
+    "shiki": "^3.20.0",
+    "tailwindcss": "^4.1.18",
+    "unist-util-visit": "^5.0.0"
   }
 }

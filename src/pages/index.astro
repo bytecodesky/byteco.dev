@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import BlogPostCard from '../components/BlogPostCard.astro';
 import NoteCard from '../components/NoteCard.astro';
 import { getAllBlogPosts, getAllNotes } from '../lib/content';
-import { Sparkles, Pin, FileText, BookOpen, ArrowRight } from 'lucide-astro';
+import { Bug, Pin, FileText, BookOpen, ArrowRight, Flag } from 'lucide-astro';
 
 const allPosts = await getAllBlogPosts();
 const allNotes = await getAllNotes();
@@ -21,22 +21,34 @@ const latestNotes = allNotes.slice(0, 3);
     <section class="mb-24 pt-12">
       <div class="max-w-4xl">
         <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card mb-6">
-          <Sparkles size={16} class="text-[rgb(var(--color-text-primary))]" />
+		<Bug size={18} class="text-red-500 animate-pulse" />
           <span class="text-sm font-medium text-[rgb(var(--color-text-primary))]">Welcome</span>
         </div>
         <h1 class="text-6xl md:text-7xl font-bold mb-6 text-[rgb(var(--color-text-primary))] leading-tight">
-          Hi, I'm <span class="text-[rgb(var(--color-text-secondary))]">byteco</span>
-        </h1>
-        <p class="text-xl md:text-2xl text-[rgb(var(--color-text-secondary))] leading-relaxed mb-8 max-w-3xl">
-          I explore web development, programming patterns, and technology through code and writing. 
-          Building modern web experiences with TypeScript, React, and Astro.
-        </p>
-        <div class="flex gap-4">
+  Hi, I'm <span class="text-[rgb(var(--color-text-secondary))]">byteco</span>
+  <span class="inline-flex items-center">
+    <span class="text-green-500 text-7xl md:text-8xl animate-pulse font-light mr-1">[</span>
+    
+    <span class="text-[rgb(var(--color-text-secondary))]">dev</span>
+    
+    <span class="text-green-500 text-7xl md:text-8xl animate-pulse font-light ml-1">]</span>
+  </span>
+	</h1>
+	<p class="text-xl md:text-2xl text-[rgb(var(--color-text-secondary))] leading-relaxed mb-8 max-w-3xl">
+          Exploring the depths of low-level systems and web security. Passionate about Vulnerability Research, Bug Bounties, and 	   the art of Exploitation. Analyzing bits, bytes, and everything in between.
+	</p>
+        <div class="flex flex-wrap gap-4">
           <a
             href="/blog"
             class="pill-button bg-[rgba(var(--color-glass-bg),0.15)] border border-[rgba(var(--color-glass-border),0.20)] text-[rgb(var(--color-text-primary))] hover:bg-[rgba(var(--color-glass-bg),0.20)] hover:border-[rgba(var(--color-glass-border),0.30)] shadow-lg hover:shadow-xl inline-flex items-center gap-2"
           >
             Read the Blog <ArrowRight size={18} />
+          </a>
+          <a
+            href="/ctfs"
+            class="pill-button bg-[rgba(var(--color-glass-bg),0.15)] border border-[rgba(var(--color-glass-border),0.20)] text-[rgb(var(--color-text-primary))] hover:bg-[rgba(var(--color-glass-bg),0.20)] hover:border-[rgba(var(--color-glass-border),0.30)] shadow-lg hover:shadow-xl inline-flex items-center gap-2"
+          >
+            <Flag size={18} /> CTF Writeups
           </a>
           <a
             href="/about"

@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTFCard from '../../components/CTFCard.astro';
+import { getAllCTFs } from '../../lib/content';
+import { Flag } from 'lucide-astro';
+
+const ctfs = await getAllCTFs();
+---
+
+<BaseLayout
+  title="CTF Writeups - byteco.dev"
+  description="Capture The Flag competition writeups and challenge solutions"
+>
+  <div class="container mx-auto px-8 py-16">
+    <header class="mb-16">
+      <div class="flex items-center gap-4 mb-6">
+        <Flag size={48} class="text-[rgb(var(--color-text-primary))]" />
+        <h1 class="text-5xl font-bold text-[rgb(var(--color-text-primary))]">CTF Writeups</h1>
+      </div>
+      <p class="text-xl text-[rgb(var(--color-text-secondary))] max-w-3xl">
+        Capture The Flag competition writeups showcasing problem-solving approaches and security techniques across various challenge categories.
+      </p>
+    </header>
+
+    {ctfs.length === 0 ? (
+      <div class="glass-card p-12 text-center">
+        <p class="text-lg text-[rgb(var(--color-text-tertiary))]">No CTF writeups yet. Check back soon!</p>
+      </div>
+    ) : (
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {ctfs.map((ctf) => (
+          <CTFCard ctf={ctf} />
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>

@@ -23,15 +23,30 @@
     
     /* Border color */
     --color-border: 255 255 255; /* White for subtle borders */
+    
+    /* Dock dimensions */
+    --dock-w: 72px;
+    --dock-gap: 24px;
+    --content-safe-left: calc(var(--dock-w) + var(--dock-gap));
+    --content-safe-bottom: 0px;
+  }
+  
+  @media (max-width: 767px) {
+    :root {
+      --content-safe-left: 0px;
+      --content-safe-bottom: 96px;
+    }
   }
 
   html {
     @apply scroll-smooth;
+    overflow-x: clip;
   }
 
   body {
     @apply bg-[rgb(var(--color-bg-primary))] text-[rgb(var(--color-text-primary))] antialiased;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    overflow-x: clip;
   }
 
   /* Focus styles for accessibility - grayscale */
@@ -42,6 +57,7 @@
   /* Code block styling */
   pre {
     @apply rounded-lg p-4 overflow-x-auto bg-[rgb(var(--color-bg-secondary))];
+    max-width: 100%;
   }
 
   code {
@@ -52,66 +68,147 @@
     @apply bg-[rgb(var(--color-bg-secondary))] px-1.5 py-0.5 rounded text-[rgb(var(--color-text-primary))];
   }
 
-  /* Prose styling for MDX content */
+  /* Prose styling for MDX content - using Tailwind Typography with customizations */
   .prose {
-    @apply max-w-none;
+    @apply max-w-none text-[rgb(var(--color-text-secondary))];
   }
 
-  .prose h2 {
-    @apply text-2xl font-bold mt-8 mb-4 text-[rgb(var(--color-text-primary))];
+  .prose :where(h1):not(:where([class~="not-prose"] *)) {
+    @apply text-4xl font-bold mt-0 mb-6 text-[rgb(var(--color-text-primary))];
+    scroll-margin-top: 2rem;
   }
 
-  .prose h3 {
-    @apply text-xl font-bold mt-6 mb-3 text-[rgb(var(--color-text-primary))];
+  .prose :where(h2):not(:where([class~="not-prose"] *)) {
+    @apply text-2xl font-bold mt-10 mb-4 text-[rgb(var(--color-text-primary))] border-b border-[rgba(var(--color-border),0.1)] pb-2;
+    scroll-margin-top: 2rem;
   }
 
-  .prose h4 {
-    @apply text-lg font-bold mt-4 mb-2 text-[rgb(var(--color-text-primary))];
+  .prose :where(h3):not(:where([class~="not-prose"] *)) {
+    @apply text-xl font-bold mt-8 mb-3 text-[rgb(var(--color-text-primary))];
+    scroll-margin-top: 2rem;
   }
 
-  .prose p {
-    @apply mb-4 leading-relaxed text-[rgb(var(--color-text-secondary))];
+  .prose :where(h4):not(:where([class~="not-prose"] *)) {
+    @apply text-lg font-bold mt-6 mb-2 text-[rgb(var(--color-text-primary))];
+    scroll-margin-top: 2rem;
   }
 
-  .prose ul,
-  .prose ol {
-    @apply mb-4 ml-6 text-[rgb(var(--color-text-secondary))];
+  .prose :where(h5):not(:where([class~="not-prose"] *)) {
+    @apply text-base font-bold mt-4 mb-2 text-[rgb(var(--color-text-primary))];
+    scroll-margin-top: 2rem;
   }
 
-  .prose li {
-    @apply mb-2;
+  .prose :where(h6):not(:where([class~="not-prose"] *)) {
+    @apply text-sm font-bold mt-4 mb-2 text-[rgb(var(--color-text-primary))];
+    scroll-margin-top: 2rem;
   }
 
-  .prose a {
-    @apply text-[rgb(var(--color-text-primary))] hover:text-[rgb(var(--color-text-secondary))] underline;
+  .prose :where(p):not(:where([class~="not-prose"] *)) {
+    @apply mb-4 leading-relaxed;
   }
 
-  .prose strong {
+  .prose :where(a):not(:where([class~="not-prose"] *)) {
+    @apply text-[rgb(var(--color-text-primary))] underline decoration-[rgba(var(--color-border),0.3)] underline-offset-2 hover:decoration-[rgb(var(--color-text-primary))] transition-all;
+  }
+
+  .prose :where(strong):not(:where([class~="not-prose"] *)) {
     @apply font-semibold text-[rgb(var(--color-text-primary))];
   }
 
-  .prose blockquote {
-    @apply border-l-4 border-[rgb(var(--color-text-tertiary))] pl-4 italic my-4 text-[rgb(var(--color-text-tertiary))];
+  .prose :where(em):not(:where([class~="not-prose"] *)) {
+    @apply italic;
   }
 
-  .prose img {
-    @apply rounded-lg my-6;
+  .prose :where(ul):not(:where([class~="not-prose"] *)) {
+    @apply list-disc list-outside ml-6 mb-4 space-y-2;
   }
 
-  .prose hr {
+  .prose :where(ol):not(:where([class~="not-prose"] *)) {
+    @apply list-decimal list-outside ml-6 mb-4 space-y-2;
+  }
+
+  .prose :where(li):not(:where([class~="not-prose"] *)) {
+    @apply leading-relaxed;
+  }
+
+  .prose :where(li):not(:where([class~="not-prose"] *))::marker {
+    @apply text-[rgb(var(--color-text-tertiary))];
+  }
+
+  .prose :where(blockquote):not(:where([class~="not-prose"] *)) {
+    @apply border-l-4 border-[rgb(var(--color-text-tertiary))] pl-4 italic my-6 text-[rgb(var(--color-text-tertiary))] bg-[rgba(var(--color-glass-bg),0.02)] py-2 rounded-r;
+  }
+
+  .prose :where(code):not(:where([class~="not-prose"] *)) {
+    @apply text-sm font-mono bg-[rgb(var(--color-bg-secondary))] px-1.5 py-0.5 rounded text-[rgb(var(--color-text-primary))];
+  }
+
+  .prose :where(pre):not(:where([class~="not-prose"] *)) {
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    max-width: 100%;
+    background: transparent;
+    padding: 1rem;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  /* Code block scrollbar styling - scoped to pre inside wrapper */
+  .code-block-wrapper pre::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .code-block-wrapper pre::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .code-block-wrapper pre::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+  }
+
+  .code-block-wrapper pre::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.28);
+  }
+
+  /* Firefox scrollbar */
+  .code-block-wrapper pre {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
+  }
+
+  .prose :where(pre code):not(:where([class~="not-prose"] *)) {
+    @apply bg-transparent p-0 text-sm;
+    display: block;
+  }
+
+  .prose :where(img):not(:where([class~="not-prose"] *)) {
+    @apply rounded-lg my-6 border border-[rgba(var(--color-border),0.1)];
+  }
+
+  .prose :where(hr):not(:where([class~="not-prose"] *)) {
     @apply my-8 border-[rgba(var(--color-border),0.1)];
   }
 
-  .prose table {
-    @apply w-full my-6;
+  .prose :where(table):not(:where([class~="not-prose"] *)) {
+    @apply w-full my-6 border-collapse;
   }
 
-  .prose th {
-    @apply bg-[rgb(var(--color-bg-secondary))] p-2 text-left font-semibold;
+  .prose :where(thead):not(:where([class~="not-prose"] *)) {
+    @apply border-b-2 border-[rgba(var(--color-border),0.2)];
   }
 
-  .prose td {
-    @apply border-t border-[rgba(var(--color-border),0.1)] p-2;
+  .prose :where(th):not(:where([class~="not-prose"] *)) {
+    @apply bg-[rgb(var(--color-bg-secondary))] p-3 text-left font-semibold text-[rgb(var(--color-text-primary))];
+  }
+
+  .prose :where(td):not(:where([class~="not-prose"] *)) {
+    @apply border-t border-[rgba(var(--color-border),0.1)] p-3;
+  }
+
+  .prose :where(tbody tr):not(:where([class~="not-prose"] *)):hover {
+    @apply bg-[rgba(var(--color-glass-bg),0.02)];
   }
 }
 
