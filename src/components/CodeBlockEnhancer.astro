@@ -8,8 +8,8 @@
     const codeBlocks = document.querySelectorAll('.prose pre');
     
     codeBlocks.forEach((pre, index) => {
-      // Skip if already has a copy button
-      if (pre.querySelector('.copy-button-wrapper')) return;
+      // Skip if already wrapped
+      if (pre.parentElement?.classList.contains('code-block-wrapper')) return;
       
       // Get the language from code element's class
       const codeEl = pre.querySelector('code');
@@ -17,10 +17,14 @@
       const langMatch = classList.match(/language-([a-zA-Z0-9-_]+)/);
       const lang = langMatch ? langMatch[1] : 'text';
       
-      // Create wrapper for copy button and language label
-      const buttonWrapper = document.createElement('div');
-      buttonWrapper.className = 'copy-button-wrapper';
-      buttonWrapper.innerHTML = `
+      // Create outer wrapper with glass effect
+      const wrapper = document.createElement('div');
+      wrapper.className = 'code-block-wrapper';
+      
+      // Create header with language label and copy button
+      const header = document.createElement('div');
+      header.className = 'code-block-header';
+      header.innerHTML = `
         <span class="code-language-label">${lang}</span>
         <button class="code-copy-button" aria-label="Copy code to clipboard">
           <svg class="copy-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -35,11 +39,15 @@
         </button>
       `;
       
-      // Insert at the beginning of pre
-      pre.insertBefore(buttonWrapper, pre.firstChild);
+      // Wrap the pre element
+      if (pre.parentNode) {
+        pre.parentNode.insertBefore(wrapper, pre);
+        wrapper.appendChild(header);
+        wrapper.appendChild(pre);
+      }
       
       // Add click handler
-      const button = buttonWrapper.querySelector('.code-copy-button');
+      const button = header.querySelector('.code-copy-button');
       button?.addEventListener('click', async () => {
         const code = codeEl?.textContent || '';
         
@@ -83,17 +91,27 @@
 </script>
 
 <style is:global>
-  .copy-button-wrapper {
+  /* Outer glass wrapper for code blocks */
+  .code-block-wrapper {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 0.5rem;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.04));
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.10);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    overflow: hidden;
+  }
+
+  /* Header with language label and copy button */
+  .code-block-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0.625rem 0.75rem;
-    margin: -1rem -1rem 0.75rem -1rem;
-    border-bottom: 1px solid rgba(var(--color-glass-border), 0.08);
-    background: rgba(var(--color-glass-bg), 0.02);
-    position: sticky;
-    top: 0;
-    z-index: 10;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.03);
   }
 
   .code-language-label {

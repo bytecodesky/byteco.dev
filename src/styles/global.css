@@ -138,14 +138,38 @@
   }
 
   .prose :where(pre):not(:where([class~="not-prose"] *)) {
-    @apply my-6 rounded-lg overflow-x-auto max-w-full;
-    background: rgba(var(--color-glass-bg), 0.05);
-    backdrop-filter: blur(18px) saturate(120%);
-    -webkit-backdrop-filter: blur(18px) saturate(120%);
-    border: 1px solid rgba(var(--color-glass-border), 0.12);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    max-width: 100%;
+    background: transparent;
     padding: 1rem;
-    position: relative;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+  }
+
+  /* Code block scrollbar styling - scoped to pre inside wrapper */
+  .code-block-wrapper pre::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .code-block-wrapper pre::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .code-block-wrapper pre::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+  }
+
+  .code-block-wrapper pre::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.28);
+  }
+
+  /* Firefox scrollbar */
+  .code-block-wrapper pre {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.16) transparent;
   }
 
   .prose :where(pre code):not(:where([class~="not-prose"] *)) {
