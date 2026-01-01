@@ -1,4 +1,6 @@
 ---
+import { List } from 'lucide-astro';
+
 interface Props {
   headings: { depth: number; slug: string; text: string }[];
 }
@@ -10,21 +12,236 @@ const filteredHeadings = headings.filter((h) => h.depth <= 3);
 ---
 
 {filteredHeadings.length > 0 && (
-  <nav class="glass-card p-6" aria-labelledby="toc-heading">
-    <h2 id="toc-heading" class="text-lg font-semibold mb-4 text-[rgb(var(--color-text-primary))]">
-      Table of Contents
-    </h2>
-    <ul class="space-y-3">
-      {filteredHeadings.map((heading) => (
-        <li class={heading.depth === 3 ? 'ml-4' : ''}>
-          <a
-            href={`#${heading.slug}`}
-            class="text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-colors block py-1"
-          >
-            {heading.text}
-          </a>
-        </li>
-      ))}
-    </ul>
-  </nav>
+  <>
+    {/* Desktop TOC - sticky sidebar */}
+    <nav class="glass-card p-6 hidden lg:block" aria-labelledby="toc-heading" id="desktop-toc">
+      <h2 id="toc-heading" class="text-lg font-semibold mb-4 text-[rgb(var(--color-text-primary))]">
+        Table of Contents
+      </h2>
+      <ul class="space-y-2" id="toc-list">
+        {filteredHeadings.map((heading) => (
+          <li class={heading.depth === 3 ? 'ml-4' : ''}>
+            <a
+              href={`#${heading.slug}`}
+              data-toc-link
+              data-slug={heading.slug}
+              class="toc-link text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-all block py-1.5 px-2 rounded relative"
+            >
+              <span class="toc-indicator absolute left-0 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-[rgb(var(--color-text-primary))] rounded-full opacity-0 transition-all"></span>
+              <span class="toc-text">{heading.text}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    {/* Mobile TOC - floating button with drawer */}
+    <div class="lg:hidden">
+      <button
+        id="mobile-toc-button"
+        aria-label="Open table of contents"
+        aria-expanded="false"
+        class="fixed left-4 z-40 px-4 py-3 glass-card flex items-center gap-2 text-[rgb(var(--color-text-primary))] hover:bg-[rgba(var(--color-glass-bg),0.10)] transition-all shadow-lg"
+        style="bottom: calc(var(--content-safe-bottom) + 1.5rem);"
+      >
+        <List size={20} />
+        <span class="text-sm font-medium">Contents</span>
+      </button>
+
+      {/* Mobile TOC Drawer */}
+      <div
+        id="mobile-toc-drawer"
+        class="fixed inset-0 z-50 lg:hidden"
+        style="display: none;"
+        aria-hidden="true"
+      >
+        {/* Backdrop */}
+        <div
+          id="mobile-toc-backdrop"
+          class="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        ></div>
+        
+        {/* Drawer content */}
+        <div
+          class="absolute bottom-0 left-0 right-0 glass-card rounded-t-3xl p-6 max-h-[70vh] overflow-y-auto"
+          style="padding-bottom: calc(var(--content-safe-bottom) + 1.5rem);"
+        >
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-lg font-semibold text-[rgb(var(--color-text-primary))]">
+              Table of Contents
+            </h2>
+            <button
+              id="mobile-toc-close"
+              aria-label="Close table of contents"
+              class="p-2 hover:bg-[rgba(var(--color-glass-bg),0.08)] rounded-lg transition-colors"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M18 6 6 18"></path>
+                <path d="m6 6 12 12"></path>
+              </svg>
+            </button>
+          </div>
+          <ul class="space-y-2" id="mobile-toc-list">
+            {filteredHeadings.map((heading) => (
+              <li class={heading.depth === 3 ? 'ml-4' : ''}>
+                <a
+                  href={`#${heading.slug}`}
+                  data-toc-link-mobile
+                  data-slug={heading.slug}
+                  class="toc-link-mobile text-sm text-[rgb(var(--color-text-secondary))] hover:text-[rgb(var(--color-text-primary))] transition-all block py-2 px-3 rounded hover:bg-[rgba(var(--color-glass-bg),0.06)]"
+                >
+                  {heading.text}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    {/* Scroll-spy script */}
+    <script>
+      // Desktop scroll-spy with IntersectionObserver
+      const observerOptions = {
+        rootMargin: '-80px 0px -80% 0px',
+        threshold: 0
+      };
+
+      const headingElements = new Map<string, Element>();
+      const tocLinks = new Map<string, Element>();
+
+      // Collect all headings and TOC links
+      document.querySelectorAll('.prose h2[id], .prose h3[id]').forEach((heading) => {
+        const id = heading.getAttribute('id');
+        if (id) {
+          headingElements.set(id, heading);
+        }
+      });
+
+      document.querySelectorAll('[data-toc-link]').forEach((link) => {
+        const slug = link.getAttribute('data-slug');
+        if (slug) {
+          tocLinks.set(slug, link);
+        }
+      });
+
+      let activeSlug: string | null = null;
+
+      const setActiveLink = (slug: string) => {
+        if (activeSlug === slug) return;
+        
+        // Remove active state from previous link
+        if (activeSlug) {
+          const prevLink = tocLinks.get(activeSlug);
+          if (prevLink) {
+            prevLink.classList.remove('active');
+            const indicator = prevLink.querySelector('.toc-indicator');
+            if (indicator) {
+              indicator.classList.remove('opacity-100', 'h-full');
+              indicator.classList.add('opacity-0', 'h-0');
+            }
+          }
+        }
+
+        // Add active state to new link
+        activeSlug = slug;
+        const link = tocLinks.get(slug);
+        if (link) {
+          link.classList.add('active');
+          const indicator = link.querySelector('.toc-indicator');
+          if (indicator) {
+            indicator.classList.remove('opacity-0', 'h-0');
+            indicator.classList.add('opacity-100', 'h-full');
+          }
+        }
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            if (id) {
+              setActiveLink(id);
+            }
+          }
+        });
+      }, observerOptions);
+
+      // Observe all headings
+      headingElements.forEach((heading) => {
+        observer.observe(heading);
+      });
+
+      // Mobile drawer functionality
+      const mobileButton = document.getElementById('mobile-toc-button');
+      const mobileDrawer = document.getElementById('mobile-toc-drawer');
+      const mobileBackdrop = document.getElementById('mobile-toc-backdrop');
+      const mobileClose = document.getElementById('mobile-toc-close');
+      const mobileTocLinks = document.querySelectorAll('[data-toc-link-mobile]');
+
+      const openDrawer = () => {
+        if (mobileDrawer) {
+          mobileDrawer.style.display = 'block';
+          mobileDrawer.setAttribute('aria-hidden', 'false');
+          mobileButton?.setAttribute('aria-expanded', 'true');
+          // Prevent body scroll
+          document.body.style.overflow = 'hidden';
+        }
+      };
+
+      const closeDrawer = () => {
+        if (mobileDrawer) {
+          mobileDrawer.style.display = 'none';
+          mobileDrawer.setAttribute('aria-hidden', 'true');
+          mobileButton?.setAttribute('aria-expanded', 'false');
+          // Restore body scroll
+          document.body.style.overflow = '';
+        }
+      };
+
+      mobileButton?.addEventListener('click', openDrawer);
+      mobileClose?.addEventListener('click', closeDrawer);
+      mobileBackdrop?.addEventListener('click', closeDrawer);
+
+      // Close drawer when clicking a link
+      mobileTocLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+          closeDrawer();
+        });
+      });
+
+      // Close drawer on Escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mobileDrawer?.style.display === 'block') {
+          closeDrawer();
+        }
+      });
+    </script>
+
+    <style>
+      .toc-link.active {
+        color: rgb(var(--color-text-primary));
+        background: rgba(var(--color-glass-bg), 0.06);
+      }
+
+      .toc-link.active .toc-indicator {
+        opacity: 1;
+        height: 100%;
+      }
+
+      .toc-indicator {
+        transition: all 0.2s ease;
+      }
+    </style>
+  </>
 )}

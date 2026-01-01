@@ -75,26 +75,32 @@
 
   .prose :where(h1):not(:where([class~="not-prose"] *)) {
     @apply text-4xl font-bold mt-0 mb-6 text-[rgb(var(--color-text-primary))];
+    scroll-margin-top: 2rem;
   }
 
   .prose :where(h2):not(:where([class~="not-prose"] *)) {
     @apply text-2xl font-bold mt-10 mb-4 text-[rgb(var(--color-text-primary))] border-b border-[rgba(var(--color-border),0.1)] pb-2;
+    scroll-margin-top: 2rem;
   }
 
   .prose :where(h3):not(:where([class~="not-prose"] *)) {
     @apply text-xl font-bold mt-8 mb-3 text-[rgb(var(--color-text-primary))];
+    scroll-margin-top: 2rem;
   }
 
   .prose :where(h4):not(:where([class~="not-prose"] *)) {
     @apply text-lg font-bold mt-6 mb-2 text-[rgb(var(--color-text-primary))];
+    scroll-margin-top: 2rem;
   }
 
   .prose :where(h5):not(:where([class~="not-prose"] *)) {
     @apply text-base font-bold mt-4 mb-2 text-[rgb(var(--color-text-primary))];
+    scroll-margin-top: 2rem;
   }
 
   .prose :where(h6):not(:where([class~="not-prose"] *)) {
     @apply text-sm font-bold mt-4 mb-2 text-[rgb(var(--color-text-primary))];
+    scroll-margin-top: 2rem;
   }
 
   .prose :where(p):not(:where([class~="not-prose"] *)) {

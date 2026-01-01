@@ -46,19 +46,26 @@ const { title, date } = note.data;
       </time>
     </header>
 
-    <div class="grid md:grid-cols-[minmax(0,1fr)_280px] gap-12">
+    <div class="grid lg:grid-cols-[minmax(0,1fr)_280px] gap-12">
       <div class="glass-card p-8 md:p-12 min-w-0">
         <div class="prose">
           <Content />
         </div>
       </div>
       {headings.length > 0 && (
-        <aside class="hidden md:block">
+        <aside class="hidden lg:block">
           <div class="sticky top-8">
             <TableOfContents headings={headings} />
           </div>
         </aside>
       )}
     </div>
+
+    {/* Mobile TOC */}
+    {headings.length > 0 && (
+      <div class="lg:hidden">
+        <TableOfContents headings={headings} />
+      </div>
+    )}
   </article>
 </BaseLayout>
