@@ -3,18 +3,23 @@ import { List } from 'lucide-astro';
 
 interface Props {
   headings: { depth: number; slug: string; text: string }[];
+  variant?: 'desktop' | 'mobile' | 'both';
 }
 
-const { headings } = Astro.props;
+const { headings, variant = 'both' } = Astro.props;
 
 // Filter to only show h2 and h3
 const filteredHeadings = headings.filter((h) => h.depth <= 3);
+
+const showDesktop = variant === 'desktop' || variant === 'both';
+const showMobile = variant === 'mobile' || variant === 'both';
 ---
 
 {filteredHeadings.length > 0 && (
   <>
     {/* Desktop TOC - sticky sidebar */}
-    <nav class="glass-card p-6 hidden lg:block" aria-labelledby="toc-heading" id="desktop-toc">
+    {showDesktop && (
+    <nav class="glass-card p-6" aria-labelledby="toc-heading" id="desktop-toc">
       <h2 id="toc-heading" class="text-lg font-semibold mb-4 text-[rgb(var(--color-text-primary))]">
         Table of Contents
       </h2>
@@ -34,9 +39,11 @@ const filteredHeadings = headings.filter((h) => h.depth <= 3);
         ))}
       </ul>
     </nav>
+    )}
 
     {/* Mobile TOC - floating button with drawer */}
-    <div class="lg:hidden">
+    {showMobile && (
+    <div>
       <button
         id="mobile-toc-button"
         aria-label="Open table of contents"
@@ -108,6 +115,7 @@ const filteredHeadings = headings.filter((h) => h.depth <= 3);
         </div>
       </div>
     </div>
+    )}
 
     {/* Scroll-spy script */}
     <script>

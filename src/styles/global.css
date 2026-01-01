@@ -273,4 +273,25 @@
     height: 1.5rem;
     transition: all 0.3s ease;
   }
+
+  /* TOC responsive visibility */
+  .toc-desktop-only {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .toc-desktop-only {
+      display: block;
+    }
+  }
+
+  .toc-mobile-only {
+    display: block;
+  }
+
+  @media (min-width: 1024px) {
+    .toc-mobile-only {
+      display: none;
+    }
+  }
 }
